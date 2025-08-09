@@ -16,11 +16,11 @@ class AsyncTokenManager:
     """
 
     def __init__(
-            self,
-            refresh_token: str,
-            base_url: str,
-            expiration_seconds: int = 300,  # token lifetime (5 minutes)
-            buffer_seconds: int = 5,        # refresh before expiration
+        self,
+        refresh_token: str,
+        base_url: str,
+        expiration_seconds: int = 300,  # token lifetime (5 minutes)
+        buffer_seconds: int = 5,  # refresh before expiration
     ):
         self._refresh_token = refresh_token
         self._base_url = base_url

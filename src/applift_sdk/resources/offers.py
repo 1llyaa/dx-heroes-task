@@ -18,10 +18,7 @@ class OffersAPI:
         Get all offers for a given product ID.
         """
         endpoint = f"/api/v1/products/{product_id}/offers"
-        response = await self._client._request(
-            method="GET",
-            endpoint=endpoint
-        )
+        response = await self._client._request(method="GET", endpoint=endpoint)
         offers_data = response.json()
-        #TODO - Check this response
+        # TODO - Check this response
         return [OfferResponse(**offer) for offer in offers_data]

@@ -21,12 +21,12 @@ class AsyncBaseClient:
         await self._client.aclose()
 
     async def _request(
-            self,
-            method: str,
-            endpoint: str,
-            headers: Optional[Dict[str, str]] = None,
-            params: Optional[Dict[str, Any]] = None,
-            json: Optional[Dict[str, Any]] = None,
+        self,
+        method: str,
+        endpoint: str,
+        headers: Optional[Dict[str, str]] = None,
+        params: Optional[Dict[str, Any]] = None,
+        json: Optional[Dict[str, Any]] = None,
     ) -> httpx.Response:
         """
         Sends an authenticated HTTP request.
