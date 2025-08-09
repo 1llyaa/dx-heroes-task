@@ -26,13 +26,8 @@ async def main():
         print(f"This is name: {name}")
         print(f"This is description: {description}")
 
-        product_to_create: RegisterProductRequest = RegisterProductRequest(
-            id=id, name=name, description=description
-        )
-        response = await client.offers.get_offers(
-            product_id="5af8e183-ddb1-4e09-9579-4581b2e67b47"
-        )
-
+        product_to_create: RegisterProductRequest = RegisterProductRequest(id=id, name=name, description=description)
+        response = await client.products.register_product(product=product_to_create)
     print(response)
     return response
 

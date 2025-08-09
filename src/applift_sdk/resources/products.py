@@ -10,14 +10,10 @@ class ProductsAPI:
     def __init__(self, client: AsyncBaseClient):
         self._client = client
 
-    async def register_product(
-        self, product: RegisterProductRequest
-    ) -> RegisterProductResponse:
+    async def register_product(self, product: RegisterProductRequest) -> RegisterProductResponse:
         """
         Register a new product.
         """
         endpoint = "/api/v1/products/register"
-        response = await self._client._request(
-            method="POST", endpoint=endpoint, json=product.dict()
-        )
+        response = await self._client._request(method="POST", endpoint=endpoint, json=product.dict())
         return RegisterProductResponse(**response.json())
