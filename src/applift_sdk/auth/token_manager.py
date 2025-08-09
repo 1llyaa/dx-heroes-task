@@ -1,8 +1,11 @@
+import os
 import time
+import json
 import asyncio
 import httpx
-
 from typing import Optional
+from platformdirs import user_cache_dir
+
 from applift_sdk.models import AuthResponse
 
 
@@ -12,32 +15,68 @@ class AsyncTokenManager:
     Automatically refreshes token if expired.
     """
 
-    def __init__(self, refresh_token: str, base_url: str):
+    def __init__(
+            self,
+            refresh_token: str,
+            base_url: str,
+            expiration_seconds: int = 300,  # token lifetime (5 minutes)
+            buffer_seconds: int = 5,        # refresh before expiration
+    ):
         self._refresh_token = refresh_token
         self._base_url = base_url
         self._access_token: Optional[str] = None
         self._token_expires_at: float = 0
         self._lock = asyncio.Lock()
+        self._expiration_seconds = expiration_seconds
+        self._buffer_seconds = buffer_seconds
+
+        # Cache location
+        cache_dir = user_cache_dir("applift_sdk", "AppliftSDK")
+        os.makedirs(cache_dir, exist_ok=True)
+        self._cache_file_path = os.path.join(cache_dir, "token_cache.json")
 
     async def get_access_token(self) -> str:
-        """
-        Returns a valid access token, refreshing it if necessary.
-        """
         async with self._lock:
-            if self._is_expired():
-                await self._refresh_token_request()
+            # Check cache first
+            if self._access_token and not self._is_token_expired():
+                return self._access_token
+
+            cached_token = self._read_token_cache()
+            if cached_token and not self._is_token_expired():
+                self._access_token = cached_token
+                return self._access_token
+
+            # Refresh token
+            await self._refresh_token_request()
+            self._write_token_cache(self._access_token)
             return self._access_token
 
-    def _is_expired(self) -> bool:
-        """
-        Checks whether the current token has expired.
-        """
-        return time.time() >= self._token_expires_at
+    def _is_token_expired(self) -> bool:
+        return time.time() > (self._token_expires_at - self._buffer_seconds)
+
+    def _read_token_cache(self) -> Optional[str]:
+        if os.path.exists(self._cache_file_path):
+            try:
+                with open(self._cache_file_path, "r") as f:
+                    data = json.load(f)
+                    self._token_expires_at = data.get("expires_at", 0)
+                    return data.get("access_token")
+            except (OSError, json.JSONDecodeError):
+                return None
+        return None
+
+    def _write_token_cache(self, token: str):
+
+        with open(self._cache_file_path, "w") as f:
+            json.dump(
+                {
+                    "access_token": token,
+                    "expires_at": self._token_expires_at,
+                },
+                f,
+            )
 
     async def _refresh_token_request(self):
-        """
-        Performs a token refresh request to the API.
-        """
         async with httpx.AsyncClient(base_url=self._base_url) as client:
             print("[DEBUG] Sending refresh token request with header:")
             print({"Bearer": self._refresh_token})
@@ -53,4 +92,4 @@ class AsyncTokenManager:
             data = AuthResponse(**response.json())
             self._access_token = data.access_token
             print("[DEBUG] Response text:", self._access_token)
-            self._token_expires_at = time.time() + 300  # 5 minutes
+            self._token_expires_at = time.time() + self._expiration_seconds
