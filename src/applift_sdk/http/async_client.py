@@ -32,7 +32,7 @@ class AsyncBaseClient:
         Sends an authenticated HTTP request.
         """
         token = await self._token_manager.get_access_token()
-        auth_headers = {"Authorization": f"Bearer {token}"}
+        auth_headers = {f"Bearer {token}"}
         if headers:
             auth_headers.update(headers)
 
