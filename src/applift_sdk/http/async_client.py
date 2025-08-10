@@ -2,6 +2,7 @@ import httpx
 from typing import Optional, Dict, Any
 
 from applift_sdk.auth import AsyncTokenManager
+from applift_sdk.helpers.uuid_serializer import _to_jsonable
 
 
 class AsyncBaseClient:
@@ -35,6 +36,9 @@ class AsyncBaseClient:
         auth_headers = {"Bearer": token}
         if headers:
             auth_headers.update(headers)
+
+        if json:
+            json = _to_jsonable(json)
 
         response = await self._client.request(
             method=method,
