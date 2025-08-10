@@ -7,6 +7,7 @@ from typing import Optional
 from platformdirs import user_cache_dir
 
 from applift_sdk.models import AuthResponse
+from applift_sdk.exceptions import BadRequestError, AuthenticationError, ValidationError
 
 
 class AsyncTokenManager:
@@ -83,6 +84,13 @@ class AsyncTokenManager:
                 "/api/v1/auth",
                 headers={"Bearer": self._refresh_token},
             )
+
+            if response.status_code == 400:
+                raise BadRequestError(response.text)
+            elif response.status_code == 401:
+                raise AuthenticationError(response.text)
+            elif response.status_code == 422:
+                raise ValidationError(response.text)
 
             response.raise_for_status()
             data = AuthResponse(**response.json())

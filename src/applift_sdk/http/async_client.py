@@ -3,6 +3,7 @@ from typing import Optional, Dict, Any
 
 from applift_sdk.auth import AsyncTokenManager
 from applift_sdk.helpers.uuid_serializer import _to_jsonable
+from applift_sdk.exceptions import AuthenticationError, NotFoundError, ConflictError, ValidationError
 
 
 class AsyncBaseClient:
@@ -48,7 +49,16 @@ class AsyncBaseClient:
             json=json,
         )
 
+        if response.status_code == 401:
+            raise AuthenticationError(response.text)
+        elif response.status_code == 404:
+            raise NotFoundError(response.text)
+        elif response.status_code == 409:
+            raise ConflictError(response.text)
+        elif response.status_code == 422:
+            raise ValidationError(response.text)
         response.raise_for_status()
+
         return response
 
     async def aclose(self):
