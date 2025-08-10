@@ -1,8 +1,8 @@
 from uuid import UUID
 from typing import List
 
-from applift_sdk.http import AsyncBaseClient
-from applift_sdk.models import OfferResponse
+from applifting_sdk.http import AsyncBaseClient
+from applifting_sdk.models import OfferResponse
 
 
 class OffersAPI:

@@ -6,8 +6,8 @@ import httpx
 from typing import Optional
 from platformdirs import user_cache_dir
 
-from applift_sdk.models import AuthResponse
-from applift_sdk.exceptions import BadRequestError, AuthenticationError, ValidationError
+from applifting_sdk.models import AuthResponse
+from applifting_sdk.exceptions import BadRequestError, AuthenticationError, ValidationError
 
 
 class AsyncTokenManager:

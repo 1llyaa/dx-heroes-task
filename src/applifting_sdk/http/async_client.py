@@ -1,9 +1,9 @@
 import httpx
 from typing import Optional, Dict, Any
 
-from applift_sdk.auth import AsyncTokenManager
-from applift_sdk.helpers.uuid_serializer import _to_jsonable
-from applift_sdk.exceptions import AuthenticationError, NotFoundError, ConflictError, ValidationError
+from applifting_sdk.auth import AsyncTokenManager
+from applifting_sdk.helpers.uuid_serializer import _to_jsonable
+from applifting_sdk.exceptions import AuthenticationError, NotFoundError, ConflictError, ValidationError
 
 
 class AsyncBaseClient:

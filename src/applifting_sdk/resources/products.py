@@ -1,5 +1,5 @@
-from applift_sdk.http import AsyncBaseClient
-from applift_sdk.models import RegisterProductRequest, RegisterProductResponse
+from applifting_sdk.http import AsyncBaseClient
+from applifting_sdk.models import RegisterProductRequest, RegisterProductResponse
 
 
 class ProductsAPI:
@@ -15,5 +15,5 @@ class ProductsAPI:
         Register a new product.
         """
         endpoint = "/api/v1/products/register"
-        response = await self._client._request(method="POST", endpoint=endpoint, json=product.dict())
+        response = await self._client._request(method="POST", endpoint=endpoint, json=product.model_dump())
         return RegisterProductResponse(**response.json())

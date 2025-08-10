@@ -1,10 +1,10 @@
-from applift_sdk.auth import AsyncTokenManager
-from applift_sdk.http import AsyncBaseClient
+from applifting_sdk.auth import AsyncTokenManager
+from applifting_sdk.http import AsyncBaseClient
 
-from applift_sdk.resources import OffersAPI, ProductsAPI
+from applifting_sdk.resources import OffersAPI, ProductsAPI
 
 
-class AppliftClient:
+class AppliftingSDKClient:
     def __init__(
         self,
         refresh_token: str,
