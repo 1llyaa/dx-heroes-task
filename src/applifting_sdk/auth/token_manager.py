@@ -2,12 +2,14 @@ import os
 import time
 import json
 import asyncio
+
 import httpx
 from typing import Optional
 from platformdirs import user_cache_dir
 
 from applifting_sdk.models import AuthResponse
 from applifting_sdk.exceptions import BadRequestError, AuthenticationError, ValidationError
+from applifting_sdk.config import BASE_URL, TOKEN_EXPIRATION_SECONDS, TOKEN_EXPIRATION_BUFFER_SECONDS
 
 
 class AsyncTokenManager:
@@ -19,20 +21,17 @@ class AsyncTokenManager:
     def __init__(
         self,
         refresh_token: str,
-        base_url: str,
-        expiration_seconds: int = 300,  # token lifetime (5 minutes)
-        buffer_seconds: int = 5,  # refresh before expiration
     ):
-        self._refresh_token = refresh_token
-        self._base_url = base_url
+        self._refresh_token: str = refresh_token
+        self._base_url: str = BASE_URL
         self._access_token: Optional[str] = None
         self._token_expires_at: float = 0
-        self._lock = asyncio.Lock()
-        self._expiration_seconds = expiration_seconds
-        self._buffer_seconds = buffer_seconds
+        self._lock: asyncio.Lock = asyncio.Lock()
+        self._expiration_seconds: int = TOKEN_EXPIRATION_SECONDS
+        self._buffer_seconds: int = TOKEN_EXPIRATION_BUFFER_SECONDS
 
         # Cache location
-        cache_dir = user_cache_dir("applift_sdk", "AppliftSDK")
+        cache_dir = user_cache_dir("applifting_sdk", "AppliftingSDK")
         os.makedirs(cache_dir, exist_ok=True)
         self._cache_file_path = os.path.join(cache_dir, "token_cache.json")
 

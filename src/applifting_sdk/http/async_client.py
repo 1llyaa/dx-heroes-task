@@ -4,6 +4,7 @@ from typing import Optional, Dict, Any
 from applifting_sdk.auth import AsyncTokenManager
 from applifting_sdk.helpers.uuid_serializer import _to_jsonable
 from applifting_sdk.exceptions import AuthenticationError, NotFoundError, ConflictError, ValidationError
+from applifting_sdk.config import BASE_URL
 
 
 class AsyncBaseClient:
@@ -11,16 +12,10 @@ class AsyncBaseClient:
     Base async HTTP client that handles auth and sends requests to the API.
     """
 
-    def __init__(self, base_url: str, token_manager: AsyncTokenManager):
-        self._base_url = base_url
+    def __init__(self, token_manager: AsyncTokenManager):
+        self._base_url = BASE_URL
         self._token_manager = token_manager
-        self._client = httpx.AsyncClient(base_url=base_url)
-
-    async def __aenter__(self):
-        return self
-
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        await self._client.aclose()
+        self._client = httpx.AsyncClient(base_url=self._base_url)
 
     async def _request(
         self,
@@ -65,4 +60,10 @@ class AsyncBaseClient:
         """
         Close the internal HTTPX client.
         """
+        await self._client.aclose()
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
         await self._client.aclose()
