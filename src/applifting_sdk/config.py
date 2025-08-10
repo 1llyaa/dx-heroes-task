@@ -1,8 +1,9 @@
+from typing import Optional
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    refresh_token: str
+    refresh_token: Optional[str] = None
     base_url: str = "https://python.exercise.applifting.cz/"
     token_expiration_seconds: int = 300
     token_expiration_buffer_seconds: int = 5
