@@ -78,18 +78,13 @@ class AsyncTokenManager:
 
     async def _refresh_token_request(self):
         async with httpx.AsyncClient(base_url=self._base_url) as client:
-            print("[DEBUG] Sending refresh token request with header:")
-            print({"Bearer": self._refresh_token})
 
             response = await client.post(
                 "/api/v1/auth",
                 headers={"Bearer": self._refresh_token},
             )
 
-            print("[DEBUG] Status code:", response.status_code)
-            print("[DEBUG] Response text:", response.text)
             response.raise_for_status()
             data = AuthResponse(**response.json())
             self._access_token = data.access_token
-            print("[DEBUG] Response text:", self._access_token)
             self._token_expires_at = time.time() + self._expiration_seconds
