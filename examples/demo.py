@@ -1,7 +1,6 @@
 import asyncio
 import uuid
 import os
-from http.client import responses
 
 from dotenv import load_dotenv
 
@@ -12,6 +11,7 @@ from applifting_sdk.exceptions import AppliftSDKError
 load_dotenv("../../../.env")
 
 refresh_token = os.environ.get("REFRESH_TOKEN")
+
 
 
 async def main():
