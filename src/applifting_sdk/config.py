@@ -1,6 +1,14 @@
-import os
+from pydantic_settings import BaseSettings
 
-BASE_URL = os.environ.get("APPLIFT_SDK_API_BASE_URL", "https://python.exercise.applifting.cz/")
 
-TOKEN_EXPIRATION_SECONDS = int(os.environ.get("TOKEN_EXPIRATION_SECONDS", 300))
-TOKEN_EXPIRATION_BUFFER_SECONDS = int(os.environ.get("TOKEN_EXPIRATION_BUFFER_SECONDS", 5))
+class Settings(BaseSettings):
+    refresh_token: str
+    base_url: str = "https://python.exercise.applifting.cz/"
+    token_expiration_seconds: int = 300
+    token_expiration_buffer_seconds: int = 5
+
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+
+settings = Settings()

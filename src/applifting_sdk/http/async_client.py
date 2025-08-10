@@ -4,7 +4,7 @@ from typing import Optional, Dict, Any
 from applifting_sdk.auth import AsyncTokenManager
 from applifting_sdk.helpers.uuid_serializer import _to_jsonable
 from applifting_sdk.exceptions import AuthenticationError, NotFoundError, ConflictError, ValidationError
-from applifting_sdk.config import BASE_URL
+from applifting_sdk.config import settings
 
 
 class AsyncBaseClient:
@@ -13,7 +13,7 @@ class AsyncBaseClient:
     """
 
     def __init__(self, token_manager: AsyncTokenManager):
-        self._base_url = BASE_URL
+        self._base_url = settings.base_url
         self._token_manager = token_manager
         self._client = httpx.AsyncClient(base_url=self._base_url)
 

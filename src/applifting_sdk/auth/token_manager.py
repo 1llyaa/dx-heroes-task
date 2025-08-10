@@ -8,8 +8,8 @@ from typing import Optional
 from platformdirs import user_cache_dir
 
 from applifting_sdk.models import AuthResponse
-from applifting_sdk.exceptions import BadRequestError, AuthenticationError, ValidationError
-from applifting_sdk.config import BASE_URL, TOKEN_EXPIRATION_SECONDS, TOKEN_EXPIRATION_BUFFER_SECONDS
+from applifting_sdk.exceptions import BadRequestError, AuthenticationError, ValidationError, AppliftSDKError
+from applifting_sdk.config import settings
 
 
 class AsyncTokenManager:
@@ -23,12 +23,12 @@ class AsyncTokenManager:
         refresh_token: str,
     ):
         self._refresh_token: str = refresh_token
-        self._base_url: str = BASE_URL
+        self._base_url: str = settings.base_url
         self._access_token: Optional[str] = None
         self._token_expires_at: float = 0
         self._lock: asyncio.Lock = asyncio.Lock()
-        self._expiration_seconds: int = TOKEN_EXPIRATION_SECONDS
-        self._buffer_seconds: int = TOKEN_EXPIRATION_BUFFER_SECONDS
+        self._expiration_seconds: int = settings.token_expiration_seconds
+        self._buffer_seconds: int = settings.token_expiration_buffer_seconds
 
         # Cache location
         cache_dir = user_cache_dir("applifting_sdk", "AppliftingSDK")
@@ -78,6 +78,9 @@ class AsyncTokenManager:
 
     async def _refresh_token_request(self):
         async with httpx.AsyncClient(base_url=self._base_url) as client:
+
+            if not self._refresh_token:
+                raise AppliftSDKError("No refresh token was provided - create .env file and use load_dotenv()")
 
             response = await client.post(
                 "/api/v1/auth",
