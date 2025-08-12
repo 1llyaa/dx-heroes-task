@@ -8,8 +8,10 @@ from typing import Optional
 from platformdirs import user_cache_dir
 
 from applifting_sdk.models import AuthResponse
-from applifting_sdk.exceptions import BadRequestError, AuthenticationError, ValidationError, AppliftSDKError
+from applifting_sdk.exceptions import AppliftingSDKError ,AppliftingSDKNetworkError, AppliftingSDKTimeoutError, AuthenticationError, \
+    PermissionDenied, NotFoundError, ConflictError, ValidationFailed, RateLimitError, ServerError, APIError
 from applifting_sdk.config import settings
+from applifting_sdk.models.validation import HTTPValidationError
 
 
 class AsyncTokenManager:
@@ -80,21 +82,57 @@ class AsyncTokenManager:
         async with httpx.AsyncClient(base_url=self._base_url) as client:
 
             if not self._refresh_token:
-                raise AppliftSDKError("No refresh token was provided - create .env file and use load_dotenv()")
+                raise AppliftingSDKError("No refresh token was provided - create .env file and use load_dotenv()")
 
-            response = await client.post(
-                "/api/v1/auth",
-                headers={"Bearer": self._refresh_token},
-            )
+            try:
+                response = await client.post(
+                    "/api/v1/auth",
+                    headers={"Bearer": self._refresh_token},
+                )
 
-            if response.status_code == 400:
-                raise BadRequestError(response.text)
-            elif response.status_code == 401:
-                raise AuthenticationError(response.text)
-            elif response.status_code == 422:
-                raise ValidationError(response.text)
+            except httpx.ConnectTimeout as e:
+                raise AppliftingSDKTimeoutError("Connection timed out") from e
+            except httpx.ReadTimeout as e:
+                raise AppliftingSDKTimeoutError("Read timed out") from e
+            except (httpx.NetworkError, httpx.ConnectError, httpx.RemoteProtocolError) as e:
+                raise AppliftingSDKNetworkError(str(e)) from e
 
-            response.raise_for_status()
-            data = AuthResponse(**response.json())
-            self._access_token = data.access_token
-            self._token_expires_at = time.time() + self._expiration_seconds
+            if 200 <= response.status_code < 300:
+                data = AuthResponse(**response.json())
+                self._access_token = data.access_token
+                self._token_expires_at = time.time() + self._expiration_seconds
+                return
+
+        payload = None
+        text = None
+        try:
+            payload = response.json()
+        except Exception:
+            try:
+                text = response.text
+            except Exception:
+                text = None
+
+        status = response.status_code
+
+        if status == 401:
+            raise AuthenticationError(status, "Unauthorized", details=payload, response_text=text)
+        elif status == 403:
+            raise PermissionDenied(status, "Forbidden", details=payload, response_text=text)
+        elif status == 404:
+            raise NotFoundError(status, "Not Found", details=payload, response_text=text)
+        elif status == 409:
+            raise ConflictError(status, "Conflict", details=payload, response_text=text)
+        elif status == 422:
+            details = None
+            if payload is not None:
+                details = HTTPValidationError(**payload)
+            raise ValidationFailed(status, "Validation failed", details=details, response_text=text)
+        elif status == 429:
+            raise RateLimitError(status, "Too Many Requests", details=payload, response_text=text)
+        elif 500 <= status < 600:
+            raise ServerError(status, "Server error", details=payload, response_text=text)
+        else:
+            raise APIError(status, "Unexpected API error", details=payload, response_text=text)
+
+
