@@ -12,4 +12,5 @@ class Settings(BaseSettings):
         env_file: str = ".env"
         env_file_encoding: str = "utf-8"
 
+
 settings: Settings = Settings()

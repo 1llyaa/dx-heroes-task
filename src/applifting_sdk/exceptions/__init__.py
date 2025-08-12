@@ -10,8 +10,9 @@ from .api_exceptions import (
     ValidationFailed,
     RateLimitError,
     ServerError,
-    BadRequestError
+    BadRequestError,
 )
+
 __all__ = [
     "AppliftingSDKError",
     "AppliftingSDKNetworkError",

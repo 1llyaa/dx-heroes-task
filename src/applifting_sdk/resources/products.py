@@ -18,5 +18,7 @@ class ProductsAPI:
         """
 
         endpoint: str = "/api/v1/products/register"
-        response: httpx.Response = await self._client._request(method="POST", endpoint=endpoint, json=product.model_dump())
+        response: httpx.Response = await self._client._request(
+            method="POST", endpoint=endpoint, json=product.model_dump()
+        )
         return RegisterProductResponse(**response.json())

@@ -8,8 +8,19 @@ from typing import Optional
 from platformdirs import user_cache_dir
 
 from applifting_sdk.models import AuthResponse
-from applifting_sdk.exceptions import AppliftingSDKError ,AppliftingSDKNetworkError, AppliftingSDKTimeoutError, AuthenticationError, \
-    PermissionDenied, NotFoundError, ConflictError, ValidationFailed, RateLimitError, ServerError, APIError
+from applifting_sdk.exceptions import (
+    AppliftingSDKError,
+    AppliftingSDKNetworkError,
+    AppliftingSDKTimeoutError,
+    AuthenticationError,
+    PermissionDenied,
+    NotFoundError,
+    ConflictError,
+    ValidationFailed,
+    RateLimitError,
+    ServerError,
+    APIError,
+)
 from applifting_sdk.config import settings
 from applifting_sdk.models.validation import HTTPValidationError
 
@@ -74,7 +85,8 @@ class AsyncTokenManager:
                 {
                     "access_token": token,
                     "expires_at": self._token_expires_at,
-                }, fp=f
+                },
+                fp=f,
             )
 
     async def _refresh_token_request(self):
@@ -104,7 +116,7 @@ class AsyncTokenManager:
 
         payload: dict | None = None
         text: str | None = None
-        #TODO - Improve logic here
+        # TODO - Improve logic here
         try:
             payload: dict = response.json()
         except Exception:
@@ -134,5 +146,3 @@ class AsyncTokenManager:
             raise ServerError(status, "Server error", details=payload, response_text=text)
         else:
             raise APIError(status, "Unexpected API error", details=payload, response_text=text)
-
-

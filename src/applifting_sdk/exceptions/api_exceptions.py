@@ -15,14 +15,15 @@ class AppliftingSDKTimeoutError(AppliftingSDKError):
 
 class APIError(AppliftingSDKError):
     """Generic non-success HTTP response from the API."""
+
     def __init__(
-            self,
-            status_code: int,
-            message: str,
-            *,
-            code: Optional[str] = None,
-            details: Any = None,
-            response_text: Optional[str] = None,
+        self,
+        status_code: int,
+        message: str,
+        *,
+        code: Optional[str] = None,
+        details: Any = None,
+        response_text: Optional[str] = None,
     ) -> None:
         super().__init__(f"{status_code} {message}")
         self.status_code = status_code
@@ -34,6 +35,7 @@ class APIError(AppliftingSDKError):
 
 class BadRequestError(APIError):
     """400 BadRequest."""
+
 
 class AuthenticationError(APIError):
     """401 Unauthorized."""
@@ -61,4 +63,3 @@ class RateLimitError(APIError):
 
 class ServerError(APIError):
     """5xx responses."""
-
