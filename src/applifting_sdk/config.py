@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     token_expiration_buffer_seconds: int = 5
 
     class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+        env_file: str = ".env"
+        env_file_encoding: str = "utf-8"
 
-settings = Settings()
+settings: Settings = Settings()

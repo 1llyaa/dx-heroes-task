@@ -1,6 +1,8 @@
 from uuid import UUID
 from typing import List
 
+import httpx
+
 from applifting_sdk.http import AsyncBaseClient
 from applifting_sdk.models import OfferResponse
 
@@ -11,14 +13,14 @@ class OffersAPI:
     """
 
     def __init__(self, client: AsyncBaseClient):
-        self._client = client
+        self._client: AsyncBaseClient = client
 
     async def get_offers(self, product_id: UUID) -> List[OfferResponse]:
         """
         Get all offers for a given product ID.
         """
-        endpoint = f"/api/v1/products/{product_id}/offers"
-        response = await self._client._request(method="GET", endpoint=endpoint)
-        offers_data = response.json()
+        endpoint: str = f"/api/v1/products/{product_id}/offers"
+        response: httpx.Response = await self._client._request(method="GET", endpoint=endpoint)
+        offers_data: dict = response.json()
         # TODO - Check this response
         return [OfferResponse(**offer) for offer in offers_data]

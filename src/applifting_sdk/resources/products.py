@@ -1,3 +1,5 @@
+import httpx
+
 from applifting_sdk.http import AsyncBaseClient
 from applifting_sdk.models import RegisterProductRequest, RegisterProductResponse
 
@@ -8,12 +10,13 @@ class ProductsAPI:
     """
 
     def __init__(self, client: AsyncBaseClient):
-        self._client = client
+        self._client: AsyncBaseClient = client
 
     async def register_product(self, product: RegisterProductRequest) -> RegisterProductResponse:
         """
         Register a new product.
         """
-        endpoint = "/api/v1/products/register"
-        response = await self._client._request(method="POST", endpoint=endpoint, json=product.model_dump())
+
+        endpoint: str = "/api/v1/products/register"
+        response: httpx.Response = await self._client._request(method="POST", endpoint=endpoint, json=product.model_dump())
         return RegisterProductResponse(**response.json())

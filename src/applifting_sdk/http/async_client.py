@@ -16,9 +16,9 @@ class AsyncBaseClient:
     """
 
     def __init__(self, token_manager: AsyncTokenManager):
-        self._base_url = settings.base_url
-        self._token_manager = token_manager
-        self._client = httpx.AsyncClient(base_url=self._base_url)
+        self._base_url: str = settings.base_url
+        self._token_manager: AsyncTokenManager = token_manager
+        self._client: httpx.AsyncClient = httpx.AsyncClient(base_url=self._base_url)
 
     async def _request(
         self,
@@ -32,8 +32,8 @@ class AsyncBaseClient:
         """
         Sends an authenticated HTTP request.
         """
-        token = await self._token_manager.get_access_token()
-        auth_headers = {"Bearer": token}
+        token: str = await self._token_manager.get_access_token()
+        auth_headers: dict = {"Bearer": token}
         if headers:
             auth_headers.update(headers)
 
@@ -41,7 +41,7 @@ class AsyncBaseClient:
             json = _to_jsonable(json)
 
         try:
-            response = await self._client.request(
+            response: httpx.Response = await self._client.request(
                 method=method,
                 url=endpoint,
                 headers=auth_headers,
@@ -59,17 +59,17 @@ class AsyncBaseClient:
         if 200 <= response.status_code < 300:
             return response
 
-        payload = None
-        text = None
+        payload: dict | None = None
+        text: str | None = None
         try:
-            payload = response.json()
+            payload: dict = response.json()
         except Exception:
             try:
-                text = response.text
+                text: str = response.text
             except Exception:
                 text = None
 
-        status = response.status_code
+        status: int = response.status_code
 
         if status == 401:
             raise AuthenticationError(status, "Unauthorized", details=payload, response_text=text)
@@ -80,9 +80,9 @@ class AsyncBaseClient:
         elif status == 409:
             raise ConflictError(status, "Conflict", details=payload, response_text=text)
         elif status == 422:
-            details = None
+            details: HTTPValidationError | None = None
             if payload is not None:
-                details = HTTPValidationError(**payload)
+                details: HTTPValidationError = HTTPValidationError(**payload)
             raise ValidationFailed(status, "Validation failed", details=details, response_text=text)
         elif status == 429:
             raise RateLimitError(status, "Too Many Requests", details=payload, response_text=text)

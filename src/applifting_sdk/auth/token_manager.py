@@ -33,9 +33,9 @@ class AsyncTokenManager:
         self._buffer_seconds: int = settings.token_expiration_buffer_seconds
 
         # Cache location
-        cache_dir = user_cache_dir("applifting_sdk", "AppliftingSDK")
+        cache_dir: str = user_cache_dir("applifting_sdk", "AppliftingSDK")
         os.makedirs(cache_dir, exist_ok=True)
-        self._cache_file_path = os.path.join(cache_dir, "token_cache.json")
+        self._cache_file_path: str = os.path.join(cache_dir, "token_cache.json")
 
     async def get_access_token(self) -> str:
         async with self._lock:
@@ -43,9 +43,9 @@ class AsyncTokenManager:
             if self._access_token and not self._is_token_expired():
                 return self._access_token
 
-            cached_token = self._read_token_cache()
+            cached_token: str | None = self._read_token_cache()
             if cached_token and not self._is_token_expired():
-                self._access_token = cached_token
+                self._access_token: str = cached_token
                 return self._access_token
 
             # Refresh token
@@ -74,8 +74,7 @@ class AsyncTokenManager:
                 {
                     "access_token": token,
                     "expires_at": self._token_expires_at,
-                },
-                f,
+                }, fp=f
             )
 
     async def _refresh_token_request(self):
@@ -85,7 +84,7 @@ class AsyncTokenManager:
                 raise AppliftingSDKError("No refresh token was provided - create .env file and use load_dotenv()")
 
             try:
-                response = await client.post(
+                response: httpx.Response = await client.post(
                     "/api/v1/auth",
                     headers={"Bearer": self._refresh_token},
                 )
@@ -103,17 +102,18 @@ class AsyncTokenManager:
                 self._token_expires_at = time.time() + self._expiration_seconds
                 return
 
-        payload = None
-        text = None
+        payload: dict | None = None
+        text: str | None = None
+        #TODO - Improve logic here
         try:
-            payload = response.json()
+            payload: dict = response.json()
         except Exception:
             try:
-                text = response.text
+                text: str = response.text
             except Exception:
                 text = None
 
-        status = response.status_code
+        status: int = response.status_code
 
         if status == 401:
             raise AuthenticationError(status, "Unauthorized", details=payload, response_text=text)
@@ -124,9 +124,9 @@ class AsyncTokenManager:
         elif status == 409:
             raise ConflictError(status, "Conflict", details=payload, response_text=text)
         elif status == 422:
-            details = None
+            details: HTTPValidationError | None = None
             if payload is not None:
-                details = HTTPValidationError(**payload)
+                details: HTTPValidationError = HTTPValidationError(**payload)
             raise ValidationFailed(status, "Validation failed", details=details, response_text=text)
         elif status == 429:
             raise RateLimitError(status, "Too Many Requests", details=payload, response_text=text)
