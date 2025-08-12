@@ -5,11 +5,11 @@ class AppliftingSDKError(Exception):
     """Base exception for the SDK."""
 
 
-class NetworkError(AppliftingSDKError):
+class AppliftingSDKNetworkError(AppliftingSDKError):
     """Network connectivity error (DNS, connection refused, etc.)."""
 
 
-class TimeoutError(AppliftingSDKError):
+class AppliftingSDKTimeoutError(AppliftingSDKError):
     """Request timed out."""
 
 

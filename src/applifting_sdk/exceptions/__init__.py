@@ -1,7 +1,7 @@
 from .api_exceptions import (
     AppliftingSDKError,
-    NetworkError,
-    TimeoutError,
+    AppliftingSDKNetworkError,
+    AppliftingSDKTimeoutError,
     APIError,
     AuthenticationError,
     PermissionDenied,
@@ -14,8 +14,8 @@ from .api_exceptions import (
 )
 __all__ = [
     "AppliftingSDKError",
-    "NetworkError",
-    "TimeoutError",
+    "AppliftingSDKNetworkError",
+    "AppliftingSDKTimeoutError",
     "APIError",
     "AuthenticationError",
     "PermissionDenied",
