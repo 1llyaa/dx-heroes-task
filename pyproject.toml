@@ -24,3 +24,58 @@ where = ["src"]
 
 [tool.black]
 line-length = 120
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+    "--tb=short",
+    "--cov=src/applifting_sdk",
+    "--cov-report=term-missing",
+    "--cov-report=html:htmlcov",
+    "--cov-report=xml:coverage.xml",
+    "--cov-fail-under=90",
+    "--cov-branch"
+]
+pythonpath = ["src"]
+markers = [
+    "unit: Unit tests for individual functions and classes",
+    "integration: Integration tests for component interactions",
+    "auth: Tests related to authentication and token management",
+    "http: Tests related to HTTP client functionality",
+    "models: Tests related to data models and validation",
+    "resources: Tests related to API resources (offers, products)",
+    "exceptions: Tests related to exception handling",
+    "slow: Slow running tests",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/venv/*",
+    "src/applifting_sdk/helpers/__init__.py",
+    "src/applifting_sdk/http/base_client.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
