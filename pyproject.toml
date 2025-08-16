@@ -26,11 +26,8 @@ where = ["src"]
 line-length = 120
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
 addopts = [
+    "-ra -q -s -p no:warnings",
     "--strict-markers",
     "--strict-config",
     "--verbose",
