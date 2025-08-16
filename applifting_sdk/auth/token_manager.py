@@ -7,14 +7,23 @@ import httpx
 from typing import Optional
 from platformdirs import user_cache_dir
 
-from applifting_sdk.helpers import ErrorHandler
 from applifting_sdk.models import AuthResponse
 from applifting_sdk.exceptions import (
     AppliftingSDKError,
     AppliftingSDKNetworkError,
     AppliftingSDKTimeoutError,
+    AuthenticationError,
+    PermissionDenied,
+    NotFoundError,
+    ConflictError,
+    ValidationFailed,
+    RateLimitError,
+    ServerError,
+    APIError,
+    BadRequestError,
 )
 from applifting_sdk.config import settings
+from applifting_sdk.models.validation import HTTPValidationError
 
 
 class AsyncTokenManager:
@@ -34,7 +43,6 @@ class AsyncTokenManager:
         self._lock: asyncio.Lock = asyncio.Lock()
         self._expiration_seconds: int = settings.token_expiration_seconds
         self._buffer_seconds: int = settings.token_expiration_buffer_seconds
-        self._error_handler: ErrorHandler = ErrorHandler()
 
         # Cache location
         cache_dir: str = user_cache_dir("applifting_sdk", "AppliftingSDK")
@@ -101,9 +109,43 @@ class AsyncTokenManager:
             except (httpx.NetworkError, httpx.ConnectError, httpx.RemoteProtocolError) as e:
                 raise AppliftingSDKNetworkError(str(e)) from e
 
-            if not response.is_success:
-                self._error_handler.raise_api_error(response)
+            if 200 <= response.status_code < 300:
+                data = AuthResponse(**response.json())
+                self._access_token = data.access_token
+                self._token_expires_at = time.time() + self._expiration_seconds
+                return
 
-            data = AuthResponse(**response.json())
-            self._access_token = data.access_token
-            self._token_expires_at = time.time() + self._expiration_seconds
+        payload: dict | None = None
+        text: str | None = None
+        # TODO - Improve logic here
+        try:
+            payload: dict = response.json()
+        except Exception:
+            try:
+                text: str = response.text
+            except Exception:
+                text = None
+
+        status: int = response.status_code
+
+        if status == 400:
+            raise BadRequestError(status, "Bad Request", details=payload, response_text=text)
+        elif status == 401:
+            raise AuthenticationError(status, "Unauthorized", details=payload, response_text=text)
+        elif status == 403:
+            raise PermissionDenied(status, "Forbidden", details=payload, response_text=text)
+        elif status == 404:
+            raise NotFoundError(status, "Not Found", details=payload, response_text=text)
+        elif status == 409:
+            raise ConflictError(status, "Conflict", details=payload, response_text=text)
+        elif status == 422:
+            details: HTTPValidationError | None = None
+            if payload is not None:
+                details: HTTPValidationError = HTTPValidationError(**payload)
+            raise ValidationFailed(status, "Validation failed", details=details, response_text=text)
+        elif status == 429:
+            raise RateLimitError(status, "Too Many Requests", details=payload, response_text=text)
+        elif 500 <= status < 600:
+            raise ServerError(status, "Server error", details=payload, response_text=text)
+        else:
+            raise APIError(status, "Unexpected API error", details=payload, response_text=text)

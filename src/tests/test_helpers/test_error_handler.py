@@ -3,8 +3,14 @@ from unittest.mock import Mock
 import httpx
 from applifting_sdk.helpers.error_handler import ErrorHandler, parse_error_content, raise_api_error
 from applifting_sdk.exceptions import (
-    APIError, AuthenticationError, PermissionDenied, NotFoundError,
-    ConflictError, ValidationFailed, RateLimitError, ServerError,
+    APIError,
+    AuthenticationError,
+    PermissionDenied,
+    NotFoundError,
+    ConflictError,
+    ValidationFailed,
+    RateLimitError,
+    ServerError,
 )
 from applifting_sdk.models import HTTPValidationError
 
@@ -16,9 +22,15 @@ class TestErrorHandler:
         """Setup fresh ErrorHandler for each test."""
         self.handler = ErrorHandler()
 
-    def _create_mock_response(self, status_code: int, content_type: str = "application/json",
-                              json_data: dict = None, text_data: str = None,
-                              json_exception: Exception = None, text_exception: Exception = None):
+    def _create_mock_response(
+        self,
+        status_code: int,
+        content_type: str = "application/json",
+        json_data: dict = None,
+        text_data: str = None,
+        json_exception: Exception = None,
+        text_exception: Exception = None,
+    ):
         """Helper to create mock httpx.Response objects."""
         mock_response = Mock(spec=httpx.Response)
         mock_response.status_code = status_code
@@ -61,9 +73,9 @@ class TestParseErrorContent(TestErrorHandler):
 
     def test_parse_json_content_invalid_json_fallback_to_text(self):
         """Test fallback to text when JSON parsing fails."""
-        response = self._create_mock_response(400,
-                                              json_exception=ValueError("Invalid JSON"),
-                                              text_data="Invalid JSON response")
+        response = self._create_mock_response(
+            400, json_exception=ValueError("Invalid JSON"), text_data="Invalid JSON response"
+        )
 
         payload, text = self.handler.parse_error_content(response)
 
@@ -72,8 +84,7 @@ class TestParseErrorContent(TestErrorHandler):
 
     def test_parse_non_json_content_type(self):
         """Test parsing with non-JSON content type."""
-        response = self._create_mock_response(400, content_type="text/html",
-                                              text_data="<html>Error page</html>")
+        response = self._create_mock_response(400, content_type="text/html", text_data="<html>Error page</html>")
 
         payload, text = self.handler.parse_error_content(response)
 
@@ -82,9 +93,9 @@ class TestParseErrorContent(TestErrorHandler):
 
     def test_parse_content_both_json_and_text_fail(self):
         """Test when both JSON and text extraction fail."""
-        response = self._create_mock_response(400,
-                                              json_exception=ValueError("JSON error"),
-                                              text_exception=UnicodeDecodeError('utf-8', b'', 0, 0, 'test'))
+        response = self._create_mock_response(
+            400, json_exception=ValueError("JSON error"), text_exception=UnicodeDecodeError("utf-8", b"", 0, 0, "test")
+        )
 
         payload, text = self.handler.parse_error_content(response)
 
@@ -94,8 +105,7 @@ class TestParseErrorContent(TestErrorHandler):
     def test_parse_content_case_insensitive_content_type(self):
         """Test case insensitive content type checking."""
         json_data = {"error": "test"}
-        response = self._create_mock_response(400, content_type="APPLICATION/JSON",
-                                              json_data=json_data)
+        response = self._create_mock_response(400, content_type="APPLICATION/JSON", json_data=json_data)
 
         payload, text = self.handler.parse_error_content(response)
 
@@ -153,11 +163,7 @@ class TestRaiseApiError(TestErrorHandler):
 
     def test_raise_validation_error_422_with_valid_payload(self):
         """Test 422 status raises ValidationFailed with HTTPValidationError details."""
-        validation_payload = {
-            "detail": [
-                {"loc": ["field1"], "msg": "Field required", "type": "missing"}
-            ]
-        }
+        validation_payload = {"detail": [{"loc": ["field1"], "msg": "Field required", "type": "missing"}]}
         response = self._create_mock_response(422, json_data=validation_payload)
 
         with pytest.raises(ValidationFailed) as exc_info:
@@ -237,6 +243,7 @@ class TestErrorHandlerCustomization(TestErrorHandler):
 
     def test_add_custom_status_mapping(self):
         """Test adding custom status code mapping."""
+
         def custom_error_creator(status, payload, text):
             return APIError(status, "Custom teapot error", details=payload, response_text=text)
 
@@ -253,6 +260,7 @@ class TestErrorHandlerCustomization(TestErrorHandler):
 
     def test_override_existing_status_mapping(self):
         """Test overriding existing status code mapping."""
+
         def custom_auth_error(status, payload, text):
             return APIError(status, "Custom auth error", details=payload, response_text=text)
 
@@ -339,7 +347,7 @@ class TestErrorHandlerPrivateMethods(TestErrorHandler):
     def test_extract_text_content_exception(self):
         """Test text content extraction with exception."""
         response = Mock()
-        response.text = Mock(side_effect=UnicodeDecodeError('utf-8', b'', 0, 0, 'test'))
+        response.text = Mock(side_effect=UnicodeDecodeError("utf-8", b"", 0, 0, "test"))
 
         result = self.handler._extract_text_content(response)
 
@@ -399,7 +407,7 @@ class TestErrorHandlerIntegration:
         error_details = {
             "error_code": "VALIDATION_FAILED",
             "message": "Invalid input data",
-            "field_errors": ["name is required", "email format invalid"]
+            "field_errors": ["name is required", "email format invalid"],
         }
 
         response = Mock(spec=httpx.Response)
@@ -431,6 +439,7 @@ class TestErrorHandlerIntegration:
 
         # Patch HTTPValidationError temporarily
         import applifting_sdk.models.validation
+
         applifting_sdk.models.validation.HTTPValidationError = mock_http_validation_error
 
         try:

@@ -2,8 +2,14 @@ from __future__ import annotations
 from typing import Any, Optional, Tuple, Dict, Callable
 import httpx
 from applifting_sdk.exceptions import (
-    APIError, AuthenticationError, PermissionDenied, NotFoundError,
-    ConflictError, ValidationFailed, RateLimitError, ServerError,
+    APIError,
+    AuthenticationError,
+    PermissionDenied,
+    NotFoundError,
+    ConflictError,
+    ValidationFailed,
+    RateLimitError,
+    ServerError,
 )
 from applifting_sdk.models import HTTPValidationError
 
@@ -71,7 +77,9 @@ class ErrorHandler:
         # Default fallback
         raise APIError(status, "Unexpected API error", details=payload, response_text=text)
 
-    def add_status_mapping(self, status_code: int, error_creator: Callable[[int, Optional[dict], Optional[str]], Exception]) -> None:
+    def add_status_mapping(
+        self, status_code: int, error_creator: Callable[[int, Optional[dict], Optional[str]], Exception]
+    ) -> None:
         """
         Add custom status code mapping.
 
@@ -131,10 +139,12 @@ class ErrorHandler:
 # Default instance for backwards compatibility
 default_error_handler = ErrorHandler()
 
+
 # Convenience functions that use the default handler
 def parse_error_content(resp: httpx.Response) -> Tuple[Optional[dict[str, Any]], Optional[str]]:
     """Parse error content using default error handler."""
     return default_error_handler.parse_error_content(resp)
+
 
 def raise_api_error(resp: httpx.Response) -> None:
     """Raise API error using default error handler."""

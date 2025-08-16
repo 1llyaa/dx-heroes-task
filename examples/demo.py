@@ -6,12 +6,11 @@ from dotenv import load_dotenv
 
 
 from applifting_sdk import AppliftingSDKClient, RegisterProductRequest, RegisterProductResponse, OfferResponse
-from applifting_sdk.exceptions import AppliftSDKError
+from applifting_sdk.exceptions import AppliftingSDKError
 
-load_dotenv("../../../.env")
+load_dotenv()
 
 refresh_token = os.environ.get("REFRESH_TOKEN")
-
 
 
 async def main():
@@ -35,11 +34,8 @@ async def main():
                 print(offer.items_in_stock)
                 print(offer.price)
 
-
-        except AppliftSDKError as e:
+        except AppliftingSDKError as e:
             print(e)
-
-
 
 
 if __name__ == "__main__":

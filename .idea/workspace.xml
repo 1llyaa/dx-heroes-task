@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9d4e0c7f-a2cd-41c8-ba2e-1be29b50352e" name="Changes" comment="test: Add test for error handler">
+      <change afterPath="$PROJECT_DIR$/src/tests/test_helpers/test_error_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/auth/token_manager/test_init.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/auth/token_manager/test_read_token_cache.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/auth/token_manager/test_refresh_token_request.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="30vHKqYCID8vAlbhtmrgIyBlhfz" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for test_token_manager.TestAsyncTokenManager.test_refresh_token_request_read_timeout.executor": "Run",
+    "Python.demo.executor": "Run",
+    "Python.test_file.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/user/IdeaProjects/dx-heroes-task",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "com.jetbrains.python.black.configuration.BlackFormatterConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/tests/test_auth" />
+      <recent name="$PROJECT_DIR$/src/tests/test_auth/test_token_manager" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="applifting_sdk" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="applifting_sdk" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="applifting_sdk" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="applifting_sdk" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="applifting_sdk" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tests.auth.test_token_manager" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="dx-heroes-task" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/tests/auth" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.auth.test_token_manager&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <module name="applifting_sdk" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Python tests for tests.auth.test_token_manager" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9d4e0c7f-a2cd-41c8-ba2e-1be29b50352e" name="Changes" comment="" />
+      <created>1754501066117</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1754501066117</updated>
+      <workItem from="1754501067964" duration="10040000" />
+      <workItem from="1754589518132" duration="71568000" />
+      <workItem from="1755121615962" duration="1684000" />
+      <workItem from="1755184098957" duration="22030000" />
+    </task>
+    <task id="LOCAL-00001" summary="chore: Initial commit">
+      <option name="closed" value="true" />
+      <created>1754509598966</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1754509598966</updated>
+    </task>
+    <task id="LOCAL-00002" summary="chore: Initial commit">
+      <option name="closed" value="true" />
+      <created>1754510048405</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1754510048405</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: Add models">
+      <option name="closed" value="true" />
+      <created>1754510318905</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1754510318905</updated>
+    </task>
+    <task id="LOCAL-00004" summary="chore: Start over">
+      <option name="closed" value="true" />
+      <created>1754590613440</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1754590613440</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: Add models">
+      <option name="closed" value="true" />
+      <created>1754591303125</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1754591303125</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: Token manager">
+      <option name="closed" value="true" />
+      <created>1754685194874</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1754685194874</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: Add Async client">
+      <option name="closed" value="true" />
+      <created>1754686124420</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1754686124420</updated>
+    </task>
+    <task id="LOCAL-00008" summary="chore: Improve import for auth">
+      <option name="closed" value="true" />
+      <created>1754686585229</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1754686585229</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: Add resources for endpoints">
+      <option name="closed" value="true" />
+      <created>1754737547994</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1754737547994</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: Add resources for endpoints">
+      <option name="closed" value="true" />
+      <created>1754737589366</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1754737589366</updated>
+    </task>
+    <task id="LOCAL-00011" summary="chore: Improve import auth">
+      <option name="closed" value="true" />
+      <created>1754737609870</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1754737609871</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fix: Fix error with authentication">
+      <option name="closed" value="true" />
+      <created>1754737666084</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1754737666084</updated>
+    </task>
+    <task id="LOCAL-00013" summary="chore: Add debug for better refactoring">
+      <option name="closed" value="true" />
+      <created>1754737690609</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1754737690609</updated>
+    </task>
+    <task id="LOCAL-00014" summary="feat: Create client for the SDK">
+      <option name="closed" value="true" />
+      <created>1754737739346</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1754737739346</updated>
+    </task>
+    <task id="LOCAL-00015" summary="fix: Error with authentication">
+      <option name="closed" value="true" />
+      <created>1754742577462</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1754742577462</updated>
+    </task>
+    <task id="LOCAL-00016" summary="feat: Add cache">
+      <option name="closed" value="true" />
+      <created>1754742884799</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1754742884799</updated>
+    </task>
+    <task id="LOCAL-00017" summary="chore: Reformat with black">
+      <option name="closed" value="true" />
+      <created>1754757954652</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1754757954652</updated>
+    </task>
+    <task id="LOCAL-00018" summary="chore: Reformat with black">
+      <option name="closed" value="true" />
+      <created>1754758283264</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1754758283264</updated>
+    </task>
+    <task id="LOCAL-00019" summary="chore: Remove debug">
+      <option name="closed" value="true" />
+      <created>1754825333330</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1754825333330</updated>
+    </task>
+    <task id="LOCAL-00020" summary="feat: add helper for serializing json">
+      <option name="closed" value="true" />
+      <created>1754825390930</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1754825390930</updated>
+    </task>
+    <task id="LOCAL-00021" summary="fix: Error when in query parameters is UUID">
+      <option name="closed" value="true" />
+      <created>1754825453254</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1754825453254</updated>
+    </task>
+    <task id="LOCAL-00022" summary="chore: Add helper">
+      <option name="closed" value="true" />
+      <created>1754825464628</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1754825464628</updated>
+    </task>
+    <task id="LOCAL-00023" summary="feat: Add better error handling">
+      <option name="closed" value="true" />
+      <created>1754827269940</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1754827269940</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Chore: Refactor change name of the sdk">
+      <option name="closed" value="true" />
+      <created>1754836507051</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1754836507051</updated>
+    </task>
+    <task id="LOCAL-00025" summary="chore: demo.py">
+      <option name="closed" value="true" />
+      <created>1754836575310</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1754836575310</updated>
+    </task>
+    <task id="LOCAL-00026" summary="feat: Add config.py">
+      <option name="closed" value="true" />
+      <created>1754837228169</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1754837228169</updated>
+    </task>
+    <task id="LOCAL-00027" summary="chore: Change name of env variable">
+      <option name="closed" value="true" />
+      <created>1754838766100</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1754838766100</updated>
+    </task>
+    <task id="LOCAL-00028" summary="feat: Add pyproject.toml so package is installable">
+      <option name="closed" value="true" />
+      <created>1754838789044</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1754838789044</updated>
+    </task>
+    <task id="LOCAL-00029" summary="chore: Move examples to top level">
+      <option name="closed" value="true" />
+      <created>1754838823940</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1754838823940</updated>
+    </task>
+    <task id="LOCAL-00030" summary="feat: Improve config.py">
+      <option name="closed" value="true" />
+      <created>1754843676826</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1754843676826</updated>
+    </task>
+    <task id="LOCAL-00031" summary="feat: Improve config.py">
+      <option name="closed" value="true" />
+      <created>1754843756862</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1754843756862</updated>
+    </task>
+    <task id="LOCAL-00032" summary="feat: Improve exceptions">
+      <option name="closed" value="true" />
+      <created>1755024288239</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1755024288239</updated>
+    </task>
+    <task id="LOCAL-00033" summary="feat: Improve exceptions">
+      <option name="closed" value="true" />
+      <created>1755031230487</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1755031230487</updated>
+    </task>
+    <task id="LOCAL-00034" summary="feat: Improve exceptions">
+      <option name="closed" value="true" />
+      <created>1755037285932</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1755037285932</updated>
+    </task>
+    <task id="LOCAL-00035" summary="chore: Add missing typehints">
+      <option name="closed" value="true" />
+      <created>1755038886349</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1755038886349</updated>
+    </task>
+    <task id="LOCAL-00036" summary="chore: Reformat with black">
+      <option name="closed" value="true" />
+      <created>1755039083008</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1755039083008</updated>
+    </task>
+    <task id="LOCAL-00037" summary="chore: Add README.md">
+      <option name="closed" value="true" />
+      <created>1755039435581</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1755039435581</updated>
+    </task>
+    <task id="LOCAL-00038" summary="feat: Add tests">
+      <option name="closed" value="true" />
+      <created>1755214768013</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1755214768013</updated>
+    </task>
+    <task id="LOCAL-00039" summary="feat: Improve errror handling">
+      <option name="closed" value="true" />
+      <created>1755347842696</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1755347842696</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="chore: Improve import auth" />
+    <MESSAGE value="fix: Fix error with authentication" />
+    <MESSAGE value="chore: Add debug for better refactoring" />
+    <MESSAGE value="feat: Create client for the SDK" />
+    <MESSAGE value="fix: Error with authentication" />
+    <MESSAGE value="feat: Add cache" />
+    <MESSAGE value="chore: Remove debug" />
+    <MESSAGE value="feat: add helper for serializing json" />
+    <MESSAGE value="fix: Error when in query parameters is UUID" />
+    <MESSAGE value="chore: Add helper" />
+    <MESSAGE value="feat: Add better error handling" />
+    <MESSAGE value="Chore: Refactor change name of the sdk" />
+    <MESSAGE value="chore: demo.py" />
+    <MESSAGE value="feat: Add config.py" />
+    <MESSAGE value="chore: Change name of env variable" />
+    <MESSAGE value="feat: Add pyproject.toml so package is installable" />
+    <MESSAGE value="chore: Move examples to top level" />
+    <MESSAGE value="feat: Improve config.py" />
+    <MESSAGE value="feat: Improve exceptions" />
+    <MESSAGE value="chore: Add missing typehints" />
+    <MESSAGE value="chore: Reformat with black" />
+    <MESSAGE value="chore: Add README.md" />
+    <MESSAGE value="feat: Add tests" />
+    <MESSAGE value="feat: Improve errror handling" />
+    <MESSAGE value="test: Add test for error handler" />
+    <option name="LAST_COMMIT_MESSAGE" value="test: Add test for error handler" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/dx_heroes_task$test_file.coverage" NAME="test_file Coverage Results" MODIFIED="1754513264101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dx_heroes_task$.coverage" NAME=" Coverage Results" MODIFIED="1755196006351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/tests/test_auth" />
+    <SUITE FILE_PATH="coverage/dx_heroes_task$demo.coverage" NAME="demo Coverage Results" MODIFIED="1754837999738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/applifting_sdk/examples" />
+  </component>
+</project>
