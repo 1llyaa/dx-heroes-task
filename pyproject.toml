@@ -48,7 +48,13 @@ omit = [
     "*/__pycache__/*",
     "*/venv/*",
     "*/venv/*",
-
+    "src/applifting_sdk/__init__.py",
+    "src/applifting_sdk/auth/__init__.py",
+    "src/applifting_sdk/exceptions/__init__.py",
+    "src/applifting_sdk/helpers/__init__.py",
+    "src/applifting_sdk/http/__init__.py",
+    "src/applifting_sdk/models/__init__.py",
+    "src/applifting_sdk/resources/__init__.py",
 ]
 
 [tool.coverage.report]
