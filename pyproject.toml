@@ -35,24 +35,10 @@ addopts = [
     "--strict-config",
     "--verbose",
     "--tb=short",
-    "--cov=src/applifting_sdk",
     "--cov-report=term-missing",
-    "--cov-report=html:htmlcov",
-    "--cov-report=xml:coverage.xml",
     "--cov-fail-under=90",
-    "--cov-branch"
 ]
 pythonpath = ["src"]
-markers = [
-    "unit: Unit tests for individual functions and classes",
-    "integration: Integration tests for component interactions",
-    "auth: Tests related to authentication and token management",
-    "http: Tests related to HTTP client functionality",
-    "models: Tests related to data models and validation",
-    "resources: Tests related to API resources (offers, products)",
-    "exceptions: Tests related to exception handling",
-    "slow: Slow running tests",
-]
 
 [tool.coverage.run]
 source = ["src"]
@@ -62,8 +48,7 @@ omit = [
     "*/__pycache__/*",
     "*/venv/*",
     "*/venv/*",
-    "src/applifting_sdk/helpers/__init__.py",
-    "src/applifting_sdk/http/base_client.py",
+
 ]
 
 [tool.coverage.report]
