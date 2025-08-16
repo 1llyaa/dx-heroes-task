@@ -2,7 +2,7 @@ import httpx
 from typing import Optional, Dict, Any
 
 from applifting_sdk.auth import AsyncTokenManager
-from applifting_sdk.helpers import _to_jsonable, ErrorHandler
+from applifting_sdk.helpers import JSONSerializer, ErrorHandler
 from applifting_sdk.exceptions import (
     AppliftingSDKNetworkError,
     AppliftingSDKTimeoutError,
@@ -21,6 +21,7 @@ class AsyncBaseClient:
         self._token_manager: AsyncTokenManager = token_manager
         self._client: httpx.AsyncClient = httpx.AsyncClient(base_url=self._base_url)
         self.error_handler: ErrorHandler = ErrorHandler()
+        self.json_serializer: JSONSerializer = JSONSerializer()
 
     async def _request(
         self,
@@ -40,7 +41,7 @@ class AsyncBaseClient:
             auth_headers.update(headers)
 
         if json:
-            json = _to_jsonable(json)
+            json = self.json_serializer.to_jsonable(json)
 
         try:
             response: httpx.Response = await self._client.request(

@@ -1,4 +1,4 @@
-from .uuid_serializer import _to_jsonable
+from .uuid_serializer import JSONSerializer
 from .error_handler import ErrorHandler
 
-__all__ = ["_to_jsonable", "ErrorHandler"]
+__all__ = ["JSONSerializer", "ErrorHandler"]
