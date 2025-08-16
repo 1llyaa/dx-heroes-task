@@ -83,11 +83,7 @@ class TestAsyncBaseClient:
             await client._request("GET", "/test", headers={"Custom": "header", "Another": "value"})
 
             # Verify headers are merged correctly
-            expected_headers = {
-                "Bearer": "test_token",
-                "Custom": "header",
-                "Another": "value"
-            }
+            expected_headers = {"Bearer": "test_token", "Custom": "header", "Another": "value"}
 
             call_args = mock_request.call_args
             assert call_args[1]["headers"] == expected_headers
@@ -154,20 +150,10 @@ class TestAsyncBaseClient:
             params = {"version": "v1"}
             json_data = {"id": test_uuid, "data": {"nested": "value"}}
 
-            await client._request(
-                "PUT",
-                "/test/endpoint",
-                headers=headers,
-                params=params,
-                json=json_data
-            )
+            await client._request("PUT", "/test/endpoint", headers=headers, params=params, json=json_data)
 
             call_args = mock_request.call_args
-            expected_headers = {
-                "Bearer": "test_token",
-                "Content-Type": "application/json",
-                "X-Custom": "value"
-            }
+            expected_headers = {"Bearer": "test_token", "Content-Type": "application/json", "X-Custom": "value"}
 
             assert call_args[1]["method"] == "PUT"
             assert call_args[1]["url"] == "/test/endpoint"
@@ -329,14 +315,8 @@ class TestAsyncBaseClient:
         test_uuid = uuid4()
         complex_data = {
             "id": test_uuid,
-            "user": {
-                "uuid": test_uuid,
-                "profile_id": uuid4()
-            },
-            "items": [
-                {"item_id": uuid4(), "name": "item1"},
-                {"item_id": test_uuid, "name": "item2"}
-            ]
+            "user": {"uuid": test_uuid, "profile_id": uuid4()},
+            "items": [{"item_id": uuid4(), "name": "item1"}, {"item_id": test_uuid, "name": "item2"}],
         }
 
         result = JSONSerializer.to_jsonable(complex_data)
@@ -371,12 +351,7 @@ class TestAsyncBaseClient:
         client = AsyncBaseClient(self.mock_token_manager)
 
         # Test different error status codes
-        error_cases = [
-            (401, AuthenticationError),
-            (404, NotFoundError),
-            (500, ServerError),
-            (422, ValidationFailed)
-        ]
+        error_cases = [(401, AuthenticationError), (404, NotFoundError), (500, ServerError), (422, ValidationFailed)]
 
         for status_code, expected_exception in error_cases:
             mock_response = self._create_mock_response(status_code, is_success=False)

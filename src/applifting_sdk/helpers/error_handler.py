@@ -9,7 +9,8 @@ from applifting_sdk.exceptions import (
     ConflictError,
     ValidationFailed,
     RateLimitError,
-    ServerError, BadRequestError,
+    ServerError,
+    BadRequestError,
 )
 from applifting_sdk.models import HTTPValidationError
 

@@ -9,14 +9,14 @@ class JSONSerializer:
     def to_jsonable(obj: Any) -> Any:
         """Convert object to JSON-serializable format."""
         # Handle Pydantic models
-        if hasattr(obj, 'model_dump'):
+        if hasattr(obj, "model_dump"):
             try:
                 return obj.model_dump(mode="json")
             except Exception:
                 pass
 
         # Handle other models with dict() method
-        if hasattr(obj, 'dict') and callable(getattr(obj, 'dict')):
+        if hasattr(obj, "dict") and callable(getattr(obj, "dict")):
             try:
                 return obj.dict()
             except Exception:
@@ -35,5 +35,3 @@ class JSONSerializer:
 
         # Return as-is for primitives
         return obj
-
-

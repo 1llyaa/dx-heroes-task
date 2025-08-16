@@ -6,8 +6,12 @@ import httpx
 import pytest
 from unittest.mock import AsyncMock, Mock, patch
 from applifting_sdk.auth import AsyncTokenManager
-from applifting_sdk.exceptions import AppliftingSDKNetworkError, AppliftingSDKTimeoutError, AppliftingSDKError, \
-    BadRequestError
+from applifting_sdk.exceptions import (
+    AppliftingSDKNetworkError,
+    AppliftingSDKTimeoutError,
+    AppliftingSDKError,
+    BadRequestError,
+)
 
 
 class TestAsyncTokenManager:
@@ -23,7 +27,7 @@ class TestAsyncTokenManager:
         self.default_settings = {
             "token_expiration_seconds": 300,
             "token_expiration_buffer_seconds": 5,
-            "base_url": self.base_url
+            "base_url": self.base_url,
         }
 
     def _create_mock_settings(self, **overrides):
@@ -33,11 +37,11 @@ class TestAsyncTokenManager:
         return settings
 
     def _create_mock_response(
-            self,
-            status_code: int = 200,
-            json_data: dict = None,
-            is_success: bool = True,
-            json_exception: Exception = None,
+        self,
+        status_code: int = 200,
+        json_data: dict = None,
+        is_success: bool = True,
+        json_exception: Exception = None,
     ):
         """Helper to create mock httpx.Response objects."""
         mock_response = Mock(spec=httpx.Response)
@@ -253,13 +257,18 @@ class TestAsyncTokenManagerNetworkErrors(TestAsyncTokenManager):
     """Test AsyncTokenManager network error handling."""
 
     @pytest.mark.asyncio
-    @pytest.mark.parametrize("exception_class,expected_error,error_message", [
-        (httpx.ConnectTimeout("Connection timed out"), AppliftingSDKTimeoutError, "Connection timed out"),
-        (httpx.ReadTimeout("Read timed out"), AppliftingSDKTimeoutError, "Read timed out"),
-        (httpx.NetworkError("Network error"), AppliftingSDKNetworkError, "Network error"),
-    ])
-    @patch('httpx.AsyncClient.post')
-    async def test_refresh_token_request_network_errors(self, mock_post, exception_class, expected_error, error_message):
+    @pytest.mark.parametrize(
+        "exception_class,expected_error,error_message",
+        [
+            (httpx.ConnectTimeout("Connection timed out"), AppliftingSDKTimeoutError, "Connection timed out"),
+            (httpx.ReadTimeout("Read timed out"), AppliftingSDKTimeoutError, "Read timed out"),
+            (httpx.NetworkError("Network error"), AppliftingSDKNetworkError, "Network error"),
+        ],
+    )
+    @patch("httpx.AsyncClient.post")
+    async def test_refresh_token_request_network_errors(
+        self, mock_post, exception_class, expected_error, error_message
+    ):
         """Test various network errors during token refresh."""
         manager = AsyncTokenManager(self.refresh_token)
         mock_post.side_effect = exception_class
@@ -271,7 +280,7 @@ class TestAsyncTokenManagerNetworkErrors(TestAsyncTokenManager):
         assert manager._access_token is None
 
     @pytest.mark.asyncio
-    @patch('httpx.AsyncClient.post')
+    @patch("httpx.AsyncClient.post")
     async def test_refresh_token_request_timeout_error(self, mock_post):
         """Test connection timeout error during token refresh."""
         manager = AsyncTokenManager(self.refresh_token)
@@ -284,7 +293,7 @@ class TestAsyncTokenManagerNetworkErrors(TestAsyncTokenManager):
         assert manager._access_token is None
 
     @pytest.mark.asyncio
-    @patch('httpx.AsyncClient.post')
+    @patch("httpx.AsyncClient.post")
     async def test_refresh_token_request_read_timeout(self, mock_post):
         """Test read timeout error during token refresh."""
         manager = AsyncTokenManager(self.refresh_token)
@@ -297,7 +306,7 @@ class TestAsyncTokenManagerNetworkErrors(TestAsyncTokenManager):
         assert manager._access_token is None
 
     @pytest.mark.asyncio
-    @patch('httpx.AsyncClient.post')
+    @patch("httpx.AsyncClient.post")
     async def test_refresh_token_request_network_error(self, mock_post):
         """Test network error during token refresh."""
         manager = AsyncTokenManager(self.refresh_token)

@@ -26,6 +26,7 @@ class TestJSONSerializerAdditional:
 
     def test_pydantic_import_error_simulation(self):
         """Test behavior when pydantic import fails completely."""
+
         class FakeModel:
             def model_dump(self, mode=None):
                 return {"fake": "model"}
@@ -41,6 +42,7 @@ class TestJSONSerializerAdditional:
 
     def test_object_with_both_methods_pydantic_fails(self):
         """Test object with both model_dump and dict when pydantic check fails."""
+
         class BothMethods:
             def model_dump(self, mode=None):
                 if mode == "json":
@@ -58,22 +60,14 @@ class TestJSONSerializerAdditional:
     def test_uuid_string_conversion_edge_cases(self):
         """Test UUID string conversion with edge cases."""
         # Test with UUID object directly
-        test_uuid = UUID('12345678-1234-5678-1234-123456789abc')
+        test_uuid = UUID("12345678-1234-5678-1234-123456789abc")
         result = JSONSerializer.to_jsonable(test_uuid)
-        assert result == '12345678-1234-5678-1234-123456789abc'
+        assert result == "12345678-1234-5678-1234-123456789abc"
 
         # Test UUID in various nested positions
-        data = {
-            "start": test_uuid,
-            "middle": {"uuid": test_uuid, "other": "value"},
-            "end": [1, 2, test_uuid]
-        }
+        data = {"start": test_uuid, "middle": {"uuid": test_uuid, "other": "value"}, "end": [1, 2, test_uuid]}
         result = JSONSerializer.to_jsonable(data)
-        assert all(isinstance(val, str) for val in [
-            result["start"],
-            result["middle"]["uuid"],
-            result["end"][2]
-        ])
+        assert all(isinstance(val, str) for val in [result["start"], result["middle"]["uuid"], result["end"][2]])
 
     def test_none_and_falsy_values(self):
         """Test handling of None and other falsy values."""
@@ -84,7 +78,7 @@ class TestJSONSerializerAdditional:
             "false": False,
             "empty_list": [],
             "empty_dict": {},
-            "uuid_with_falsy": {"id": uuid4(), "active": False, "count": 0}
+            "uuid_with_falsy": {"id": uuid4(), "active": False, "count": 0},
         }
 
         result = JSONSerializer.to_jsonable(data)
@@ -107,10 +101,7 @@ class TestJSONSerializerAdditional:
         for i in range(100):
             large_data[f"item_{i}"] = {
                 "id": test_uuid,
-                "nested": {
-                    "values": [uuid4() for _ in range(10)],
-                    "metadata": {"uuid": uuid4(), "index": i}
-                }
+                "nested": {"values": [uuid4() for _ in range(10)], "metadata": {"uuid": uuid4(), "index": i}},
             }
 
         result = JSONSerializer.to_jsonable(large_data)
@@ -122,6 +113,7 @@ class TestJSONSerializerAdditional:
 
     def test_object_with_callable_dict_but_not_method(self):
         """Test object where dict is callable but not a method."""
+
         class WeirdObject:
             def __init__(self):
                 self.dict = lambda: {"callable": "dict"}
@@ -134,6 +126,7 @@ class TestJSONSerializerAdditional:
 
     def test_object_with_non_callable_dict_attribute(self):
         """Test object with dict attribute that's not callable."""
+
         class NonCallableDict:
             def __init__(self):
                 self.dict = {"not": "callable"}
@@ -147,10 +140,7 @@ class TestJSONSerializerAdditional:
     def test_mixed_tuple_and_list_nesting(self):
         """Test mixed tuple and list nesting with UUIDs."""
         test_uuid = uuid4()
-        data = [
-            (test_uuid, {"nested": [uuid4(), (uuid4(), "deep")]}),
-            {"tuple_in_dict": (uuid4(), [uuid4()])}
-        ]
+        data = [(test_uuid, {"nested": [uuid4(), (uuid4(), "deep")]}), {"tuple_in_dict": (uuid4(), [uuid4()])}]
 
         result = JSONSerializer.to_jsonable(data)
 
@@ -167,6 +157,7 @@ class TestJSONSerializerAdditional:
 
     def test_exception_in_dict_access(self):
         """Test handling when dict() method raises exception."""
+
         class ExceptionOnDict:
             def dict(self):
                 raise RuntimeError("Dict method failed")
@@ -180,6 +171,7 @@ class TestJSONSerializerAdditional:
 
     def test_model_dump_with_different_modes(self):
         """Test model_dump with different mode parameters."""
+
         class FlexibleModel:
             def model_dump(self, mode=None):
                 if mode == "json":

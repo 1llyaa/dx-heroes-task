@@ -23,13 +23,13 @@ class TestErrorHandler:
         self.handler = ErrorHandler()
 
     def _create_mock_response(
-            self,
-            status_code: int,
-            content_type: str = "application/json",
-            json_data: dict = None,
-            text_data: str = None,
-            json_exception: Exception = None,
-            text_exception: Exception = None,
+        self,
+        status_code: int,
+        content_type: str = "application/json",
+        json_data: dict = None,
+        text_data: str = None,
+        json_exception: Exception = None,
+        text_exception: Exception = None,
     ):
         """Helper to create mock httpx.Response objects."""
         mock_response = Mock(spec=httpx.Response)
@@ -95,9 +95,7 @@ class TestParseErrorContent(TestErrorHandler):
     def test_parse_content_both_json_and_text_fail(self):
         """Test when both JSON and text extraction fail."""
         response = self._create_mock_response(
-            400,
-            json_exception=ValueError("JSON error"),
-            text_exception=UnicodeDecodeError("utf-8", b"", 0, 0, "test")
+            400, json_exception=ValueError("JSON error"), text_exception=UnicodeDecodeError("utf-8", b"", 0, 0, "test")
         )
 
         payload, text = self.handler.parse_error_content(response)

@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d4e0c7f-a2cd-41c8-ba2e-1be29b50352e" name="Changes" comment="tests: Improve tests structure">
+    <list default="true" id="9d4e0c7f-a2cd-41c8-ba2e-1be29b50352e" name="Changes" comment="test: Update tests to new structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/helpers/error_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/helpers/error_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/auth/test_token_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/auth/test_token_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/test_helpers/test_error_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/test_helpers/test_error_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/test_helpers/test_uuid_serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/test_helpers/test_uuid_serializer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/test_http/test_async_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/test_http/test_async_client.py" afterDir="false" />
     </list>
@@ -198,7 +194,7 @@
       <workItem from="1754501067964" duration="10040000" />
       <workItem from="1754589518132" duration="71568000" />
       <workItem from="1755121615962" duration="1684000" />
-      <workItem from="1755184098957" duration="30910000" />
+      <workItem from="1755184098957" duration="32647000" />
     </task>
     <task id="LOCAL-00001" summary="chore: Initial commit">
       <option name="closed" value="true" />
@@ -544,7 +540,31 @@
       <option name="project" value="LOCAL" />
       <updated>1755358966884</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="feat: Add BadRequest error to error_handler.py">
+      <option name="closed" value="true" />
+      <created>1755378896461</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1755378896461</updated>
+    </task>
+    <task id="LOCAL-00045" summary="test: finalize tests and improve structure">
+      <option name="closed" value="true" />
+      <created>1755378936324</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1755378936324</updated>
+    </task>
+    <task id="LOCAL-00046" summary="feat: Improve JSONSerializer">
+      <option name="closed" value="true" />
+      <created>1755380000869</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1755380000869</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -562,10 +582,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: Error with authentication" />
-    <MESSAGE value="feat: Add cache" />
-    <MESSAGE value="chore: Remove debug" />
-    <MESSAGE value="feat: add helper for serializing json" />
     <MESSAGE value="fix: Error when in query parameters is UUID" />
     <MESSAGE value="chore: Add helper" />
     <MESSAGE value="feat: Add better error handling" />
@@ -587,7 +603,11 @@
     <MESSAGE value="chore: Format with black" />
     <MESSAGE value="chore: Remove duplicate files caused by IDE missconfiguration" />
     <MESSAGE value="tests: Improve tests structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="tests: Improve tests structure" />
+    <MESSAGE value="feat: Add BadRequest error to error_handler.py" />
+    <MESSAGE value="test: finalize tests and improve structure" />
+    <MESSAGE value="feat: Improve JSONSerializer" />
+    <MESSAGE value="test: Update tests to new structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="test: Update tests to new structure" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/dx_heroes_task$test_file.coverage" NAME="test_file Coverage Results" MODIFIED="1754513264101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
