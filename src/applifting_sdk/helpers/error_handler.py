@@ -9,7 +9,7 @@ from applifting_sdk.exceptions import (
     ConflictError,
     ValidationFailed,
     RateLimitError,
-    ServerError,
+    ServerError, BadRequestError,
 )
 from applifting_sdk.models import HTTPValidationError
 
@@ -20,6 +20,7 @@ class ErrorHandler:
     def __init__(self):
         """Initialize error handler with default status code mappings."""
         self._status_mappings: Dict[int, Callable[[int, Optional[dict], Optional[str]], Exception]] = {
+            400: self._create_bad_request_error,
             401: self._create_auth_error,
             403: self._create_permission_error,
             404: self._create_not_found_error,
@@ -111,6 +112,9 @@ class ErrorHandler:
         return "application/json" in content_type.lower()
 
     # Error creator methods
+    def _create_bad_request_error(self, status: int, payload: Optional[dict], text: Optional[str]) -> BadRequestError:
+        return BadRequestError(status, "Bad request", details=payload, response_text=text)
+
     def _create_auth_error(self, status: int, payload: Optional[dict], text: Optional[str]) -> AuthenticationError:
         return AuthenticationError(status, "Unauthorized", details=payload, response_text=text)
 
