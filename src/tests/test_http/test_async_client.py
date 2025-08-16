@@ -2,6 +2,8 @@ import pytest
 from unittest.mock import AsyncMock, Mock, patch, PropertyMock
 from uuid import uuid4
 import httpx
+
+
 from applifting_sdk.http import AsyncBaseClient
 from applifting_sdk.exceptions import (
     AppliftingSDKNetworkError,
@@ -321,8 +323,8 @@ class TestAsyncBaseClient:
             client._client.aclose.assert_called_once()
 
     def test_uuid_serialization_helper_integration(self):
-        """Test that UUIDs are properly serialized by the _to_jsonable helper."""
-        from applifting_sdk.helpers.uuid_serializer import _to_jsonable
+        """Test that UUIDs are properly serialized by the to_jsonable helper."""
+        from applifting_sdk.helpers import JSONSerializer
 
         test_uuid = uuid4()
         complex_data = {
@@ -337,7 +339,7 @@ class TestAsyncBaseClient:
             ]
         }
 
-        result = _to_jsonable(complex_data)
+        result = JSONSerializer.to_jsonable(complex_data)
 
         # Verify all UUIDs are converted to strings
         assert result["id"] == str(test_uuid)

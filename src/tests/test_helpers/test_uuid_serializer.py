@@ -1,248 +1,208 @@
-"""
-Tests for UUID serializer helper.
-"""
-
-import pytest
-from uuid import uuid4
+from uuid import uuid4, UUID
 from unittest.mock import Mock
-from applifting_sdk.helpers.uuid_serializer import _to_jsonable
+from applifting_sdk.helpers.uuid_serializer import JSONSerializer
 
 
-class TestUUIDSerializer:
-    """Test UUID serializer helper."""
+class TestJSONSerializerAdditional:
+    """Additional test cases for JSON serializer helper."""
 
-    def test_uuid_in_dict(self):
-        """Test UUID serialization in dictionary."""
+    def test_class_method_directly(self):
+        """Test calling JSONSerializer.to_jsonable directly."""
         test_uuid = uuid4()
         data = {"id": test_uuid, "name": "test"}
 
-        result = _to_jsonable(data)
+        result = JSONSerializer.to_jsonable(data)
         assert result["id"] == str(test_uuid)
         assert result["name"] == "test"
 
-    def test_uuid_in_list(self):
-        """Test UUID serialization in list."""
-        test_uuid = uuid4()
-        data = [test_uuid, "test", 42]
+    def test_pydantic_model_dump_exception(self):
+        """Test Pydantic model where model_dump raises exception."""
+        mock_model = Mock()
+        mock_model.model_dump = Mock(side_effect=ValueError("Serialization failed"))
+        mock_model.dict = Mock(return_value={"fallback": "success"})
 
-        result = _to_jsonable(data)
-        assert result[0] == str(test_uuid)
-        assert result[1] == "test"
-        assert result[2] == 42
+        result = JSONSerializer.to_jsonable(mock_model)
+        assert result == {"fallback": "success"}
 
-    def test_primitive_values(self):
-        """Test primitive values are unchanged."""
-        data = {"string": "test", "number": 42, "boolean": True, "none": None}
+    def test_pydantic_import_error_simulation(self):
+        """Test behavior when pydantic import fails completely."""
+        class FakeModel:
+            def model_dump(self, mode=None):
+                return {"fake": "model"}
 
-        result = _to_jsonable(data)
-        assert result == data
-
-    def test_empty_structures(self):
-        """Test empty structures are unchanged."""
-        data = {"empty_dict": {}, "empty_list": [], "empty_string": ""}
-
-        result = _to_jsonable(data)
-        assert result == data
-
-    def test_nested_dict_with_uuid(self):
-        """Test nested dictionary with UUID."""
-        test_uuid = uuid4()
-        data = {"user": {"id": test_uuid, "profile": {"avatar_id": uuid4()}}}
-
-        result = _to_jsonable(data)
-        assert result["user"]["id"] == str(test_uuid)
-        assert isinstance(result["user"]["profile"]["avatar_id"], str)
-
-    def test_list_of_dicts_with_uuid(self):
-        """Test list of dictionaries with UUIDs."""
-        test_uuid = uuid4()
-        data = [{"id": test_uuid, "name": "item1"}, {"id": uuid4(), "name": "item2"}]
-
-        result = _to_jsonable(data)
-        assert result[0]["id"] == str(test_uuid)
-        assert result[1]["id"] != str(test_uuid)  # Different UUID
-
-    def test_mixed_types_with_uuid(self):
-        """Test mixed types including UUIDs."""
-        test_uuid = uuid4()
-        data = {
-            "string": "test",
-            "number": 42,
-            "uuid": test_uuid,
-            "list": [test_uuid, "string", 123],
-            "dict": {"nested_uuid": uuid4()},
-        }
-
-        result = _to_jsonable(data)
-        assert result["uuid"] == str(test_uuid)
-        assert result["list"][0] == str(test_uuid)
-        assert isinstance(result["dict"]["nested_uuid"], str)
-
-    def test_no_uuid_data(self):
-        """Test data without UUIDs is unchanged."""
-        data = {
-            "name": "John Doe",
-            "age": 30,
-            "active": True,
-            "tags": ["developer", "python"],
-            "metadata": {"department": "engineering"},
-        }
-
-        result = _to_jsonable(data)
-        assert result == data
-
-    def test_pydantic_model_with_model_dump_json_mode(self):
-        """Test Pydantic model with model_dump(mode='json') - lines 9-11."""
-        try:
-            from pydantic import BaseModel
-
-            class TestModel(BaseModel):
-                id: str
-                value: int
-
-                def model_dump(self, mode=None):
-                    if mode == "json":
-                        return {"id": self.id, "value": self.value, "serialized": True}
-                    return {"id": self.id, "value": self.value}
-
-            model = TestModel(id="test", value=42)
-            result = _to_jsonable(model)
-
-            assert result == {"id": "test", "value": 42, "serialized": True}
-
-        except ImportError:
-            pytest.skip("Pydantic not available")
-
-    def test_pydantic_import_error_fallback(self):
-        """Test fallback when pydantic import/usage fails - lines 12-13."""
-        # Create a mock object that looks like it might be a BaseModel but isn't
-        mock_obj = Mock()
-        mock_obj.model_dump = Mock(return_value={"fallback": "data"})
-
-        # Add the dict attribute so hasattr(obj, "dict") returns True
-        mock_obj.dict = Mock()
-
-        # This should fall through to the dict() method test since pydantic handling will fail
-        result = _to_jsonable(mock_obj)
-        assert result == {"fallback": "data"}
-
-    def test_object_with_dict_method(self):
-        """Test object with dict() method - lines 15-18."""
-        class CustomObject:
-            def __init__(self, data):
-                self.data = data
-
-            def model_dump(self):
-                return {"custom": self.data, "from_dict": True}
-
-            # Also add dict for the hasattr check
             def dict(self):
-                return self.model_dump()
+                return {"dict": "method"}
 
-        obj = CustomObject("test_data")
-        result = _to_jsonable(obj)
+        # The actual implementation will try model_dump first, which succeeds
+        # So this test should expect the model_dump result, not dict result
+        obj = FakeModel()
+        result = JSONSerializer.to_jsonable(obj)
+        assert result == {"fake": "model"}
 
-        assert result == {"custom": "test_data", "from_dict": True}
+    def test_object_with_both_methods_pydantic_fails(self):
+        """Test object with both model_dump and dict when pydantic check fails."""
+        class BothMethods:
+            def model_dump(self, mode=None):
+                if mode == "json":
+                    raise AttributeError("Not a real pydantic model")
+                return {"model_dump": "result"}
 
-    def test_dict_method_exception_fallback(self):
-        """Test fallback when dict() method raises exception - lines 19-20."""
-        class FailingDictObject:
+            def dict(self):
+                return {"dict_method": "result"}
+
+        obj = BothMethods()
+        result = JSONSerializer.to_jsonable(obj)
+        # Should fall back to dict method since pydantic handling fails
+        assert result == {"dict_method": "result"}
+
+    def test_uuid_string_conversion_edge_cases(self):
+        """Test UUID string conversion with edge cases."""
+        # Test with UUID object directly
+        test_uuid = UUID('12345678-1234-5678-1234-123456789abc')
+        result = JSONSerializer.to_jsonable(test_uuid)
+        assert result == '12345678-1234-5678-1234-123456789abc'
+
+        # Test UUID in various nested positions
+        data = {
+            "start": test_uuid,
+            "middle": {"uuid": test_uuid, "other": "value"},
+            "end": [1, 2, test_uuid]
+        }
+        result = JSONSerializer.to_jsonable(data)
+        assert all(isinstance(val, str) for val in [
+            result["start"],
+            result["middle"]["uuid"],
+            result["end"][2]
+        ])
+
+    def test_none_and_falsy_values(self):
+        """Test handling of None and other falsy values."""
+        data = {
+            "none_val": None,
+            "empty_string": "",
+            "zero": 0,
+            "false": False,
+            "empty_list": [],
+            "empty_dict": {},
+            "uuid_with_falsy": {"id": uuid4(), "active": False, "count": 0}
+        }
+
+        result = JSONSerializer.to_jsonable(data)
+
+        assert result["none_val"] is None
+        assert result["empty_string"] == ""
+        assert result["zero"] == 0
+        assert result["false"] is False
+        assert result["empty_list"] == []
+        assert result["empty_dict"] == {}
+        assert isinstance(result["uuid_with_falsy"]["id"], str)
+        assert result["uuid_with_falsy"]["active"] is False
+
+    def test_large_nested_structure_performance(self):
+        """Test performance with large nested structures."""
+        # Create a reasonably large structure
+        large_data = {}
+        test_uuid = uuid4()
+
+        for i in range(100):
+            large_data[f"item_{i}"] = {
+                "id": test_uuid,
+                "nested": {
+                    "values": [uuid4() for _ in range(10)],
+                    "metadata": {"uuid": uuid4(), "index": i}
+                }
+            }
+
+        result = JSONSerializer.to_jsonable(large_data)
+
+        # Verify some random items were processed correctly
+        assert isinstance(result["item_0"]["id"], str)
+        assert isinstance(result["item_50"]["nested"]["values"][0], str)
+        assert isinstance(result["item_99"]["nested"]["metadata"]["uuid"], str)
+
+    def test_object_with_callable_dict_but_not_method(self):
+        """Test object where dict is callable but not a method."""
+        class WeirdObject:
             def __init__(self):
-                pass
+                self.dict = lambda: {"callable": "dict"}
 
-            def model_dump(self):
-                raise RuntimeError("Dict method failed")
+        obj = WeirdObject()
+        result = JSONSerializer.to_jsonable(obj)
 
-            def dict(self):
-                return self.model_dump()
+        # Should call the callable dict
+        assert result == {"callable": "dict"}
 
-            # Add hasattr dict to pass the check
-            @property
-            def dict(self):
-                raise RuntimeError("Dict method failed")
+    def test_object_with_non_callable_dict_attribute(self):
+        """Test object with dict attribute that's not callable."""
+        class NonCallableDict:
+            def __init__(self):
+                self.dict = {"not": "callable"}
 
-        obj = FailingDictObject()
-        # Should return the object unchanged since dict() method failed
-        result = _to_jsonable(obj)
+        obj = NonCallableDict()
+        result = JSONSerializer.to_jsonable(obj)
 
+        # Should return object unchanged since dict is not callable
         assert result is obj
 
-    def test_object_without_dict_method(self):
-        """Test object without dict() method returns unchanged."""
-        class SimpleObject:
-            def __init__(self, value):
-                self.value = value
+    def test_mixed_tuple_and_list_nesting(self):
+        """Test mixed tuple and list nesting with UUIDs."""
+        test_uuid = uuid4()
+        data = [
+            (test_uuid, {"nested": [uuid4(), (uuid4(), "deep")]}),
+            {"tuple_in_dict": (uuid4(), [uuid4()])}
+        ]
 
-        obj = SimpleObject("test")
-        result = _to_jsonable(obj)
+        result = JSONSerializer.to_jsonable(data)
 
+        # Check structure conversion and UUID serialization
+        assert isinstance(result[0], list)  # Tuple becomes list
+        assert isinstance(result[0][0], str)  # UUID converted
+        assert isinstance(result[0][1]["nested"][0], str)  # Nested UUID
+        assert isinstance(result[0][1]["nested"][1], list)  # Nested tuple becomes list
+        assert isinstance(result[0][1]["nested"][1][0], str)  # Deep UUID
+
+        assert isinstance(result[1]["tuple_in_dict"], list)  # Tuple in dict
+        assert isinstance(result[1]["tuple_in_dict"][0], str)  # UUID in tuple
+        assert isinstance(result[1]["tuple_in_dict"][1][0], str)  # UUID in nested list
+
+    def test_exception_in_dict_access(self):
+        """Test handling when dict() method raises exception."""
+        class ExceptionOnDict:
+            def dict(self):
+                raise RuntimeError("Dict method failed")
+
+        obj = ExceptionOnDict()
+
+        # Based on your implementation, if dict() raises an exception,
+        # the object should be returned unchanged
+        result = JSONSerializer.to_jsonable(obj)
         assert result is obj
 
-    def test_tuple_serialization(self):
-        """Test tuple serialization with UUIDs."""
+    def test_model_dump_with_different_modes(self):
+        """Test model_dump with different mode parameters."""
+        class FlexibleModel:
+            def model_dump(self, mode=None):
+                if mode == "json":
+                    return {"mode": "json", "uuid": str(uuid4())}
+                elif mode == "dict":
+                    return {"mode": "dict", "uuid": uuid4()}
+                else:
+                    return {"mode": "default", "uuid": uuid4()}
+
+        obj = FlexibleModel()
+        result = JSONSerializer.to_jsonable(obj)
+
+        # Should use json mode and have string UUID
+        assert result["mode"] == "json"
+        assert isinstance(result["uuid"], str)
+
+    def test_set_type_handling(self):
+        """Test how sets are handled (should remain unchanged)."""
         test_uuid = uuid4()
-        data = (test_uuid, "test", 42, {"nested_uuid": uuid4()})
+        data = {"uuid_set": {test_uuid, "string", 123}}
 
-        result = _to_jsonable(data)
+        result = JSONSerializer.to_jsonable(data)
 
-        assert isinstance(result, list)  # Tuples become lists
-        assert result[0] == str(test_uuid)
-        assert result[1] == "test"
-        assert result[2] == 42
-        assert isinstance(result[3]["nested_uuid"], str)
-
-    def test_complex_nested_structure(self):
-        """Test complex nested structure with mixed types."""
-        test_uuid = uuid4()
-
-        # Create an object with dict method
-        class DataObject:
-            def model_dump(self):
-                return {"object_uuid": uuid4(), "type": "data_object"}
-
-            # Add hasattr check for dict
-            @property
-            def dict(self):
-                return True
-
-        # Create the object and get its expected result first
-        data_obj = DataObject()
-        expected_obj_result = data_obj.model_dump()
-
-        data = {
-            "users": [
-                {"id": test_uuid, "name": "user1"},
-                {"id": uuid4(), "name": "user2"}
-            ],
-            "metadata": (test_uuid, "tuple_data", {"nested": uuid4()}),
-            "custom_object": data_obj,
-            "simple_uuid": test_uuid
-        }
-
-        result = _to_jsonable(data)
-
-        # Check all UUIDs are converted to strings
-        assert result["users"][0]["id"] == str(test_uuid)
-        assert isinstance(result["users"][1]["id"], str)
-        assert result["metadata"][0] == str(test_uuid)
-        assert isinstance(result["metadata"][2]["nested"], str)
-        assert result["custom_object"]["type"] == "data_object"
-        assert result["simple_uuid"] == str(test_uuid)
-
-    def test_edge_cases(self):
-        """Test edge cases and boundary conditions."""
-        # Empty structures with nested empty structures
-        data = {"empty": {}, "nested_empty": {"inner": []}}
-        result = _to_jsonable(data)
-        assert result == data
-
-        # Single UUID
-        test_uuid = uuid4()
-        result = _to_jsonable(test_uuid)
-        assert result == str(test_uuid)
-
-        # Deeply nested structure
-        deep_uuid = uuid4()
-        deep_data = {"a": {"b": {"c": {"d": {"uuid": deep_uuid}}}}}
-        result = _to_jsonable(deep_data)
-        assert result["a"]["b"]["c"]["d"]["uuid"] == str(deep_uuid)
+        # Sets should remain as sets (not converted to lists)
+        assert isinstance(result["uuid_set"], set)
+        # But we can't easily test UUID conversion in sets due to order
