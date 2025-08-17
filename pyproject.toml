@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "applifting-sdk-1llyaa"
-version = "1.0.0"
+version = "1.0.2"
 description = "A Python SDK for the Applifting Offers API."
 readme = "README.md"
 requires-python = ">=3.13"
@@ -12,9 +12,8 @@ authors = [
     { name = "Illya Miloserdov", email = "illya@miloserdov.cz" }
 ]
 license = { text = "MIT" }
-keywords = ["applifting", "sdk", "api", "offers"]
+keywords = ["applifting", "sdk", "api"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
@@ -30,6 +29,7 @@ dependencies = [
     "pydantic>=2.5.0",
     "pydantic-settings>=2.0.0",
     "python-dotenv>=1.0.0",
+    "platformdirs>=4.3.8",
 ]
 
 [project.optional-dependencies]
@@ -55,10 +55,10 @@ test = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/1llyaa/applifting-sdk"
-Repository = "https://github.com/1llyaa/applifting-sdk"
-Issues = "https://github.com/1llyaa/applifting-sdk/issues"
-Documentation = "https://github.com/1llyaa/applifting-sdk#readme"
+Homepage = "https://github.com/1llyaa/dx-heroes-task/"
+Repository = "https://github.com/1llyaa/dx-heroes-task/"
+Issues = "https://github.com/1llyaa/dx-heroes-task/issues"
+Documentation = "https://github.com/1llyaa/dx-heroes-task#readme"
 
 [tool.setuptools.packages.find]
 where = ["src"]
