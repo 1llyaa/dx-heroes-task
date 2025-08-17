@@ -1,9 +1,8 @@
+from .client import AppliftingSDKClient
 from .models import (
     OfferResponse,
-    RegisterProductResponse,
     RegisterProductRequest,
+    RegisterProductResponse,
 )
-
-from .client import AppliftingSDKClient
 
 __all__ = ["OfferResponse", "RegisterProductResponse", "RegisterProductRequest", "AppliftingSDKClient"]

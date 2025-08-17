@@ -16,7 +16,7 @@ class JSONSerializer:
                 pass
 
         # Handle other models with dict() method
-        if hasattr(obj, "dict") and callable(getattr(obj, "dict")):
+        if hasattr(obj, "dict") and callable(obj.dict):
             try:
                 return obj.dict()
             except Exception:

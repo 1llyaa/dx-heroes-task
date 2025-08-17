@@ -1,4 +1,5 @@
-from typing import Literal, Optional, Union
+from typing import Literal
+
 from applifting_sdk.auth import AsyncTokenManager, SyncTokenManager
 from applifting_sdk.http import AsyncBaseClient, SyncBaseClient
 from applifting_sdk.resources import AsyncOffersAPI, AsyncProductsAPI, SyncOffersAPI, SyncProductsAPI
@@ -20,12 +21,12 @@ class AppliftingSDKClient:
     def __init__(
         self,
         refresh_token: str,
-        http_backend: Optional[HttpBackend] = None,
+        http_backend: HttpBackend | None = None,
     ):
-        self._token_manager: Union[AsyncTokenManager, SyncTokenManager]
-        self._client: Union[AsyncBaseClient, SyncBaseClient]
-        self.offers: Union[AsyncOffersAPI, SyncOffersAPI]
-        self.products: Union[AsyncProductsAPI, SyncProductsAPI]
+        self._token_manager: AsyncTokenManager | SyncTokenManager
+        self._client: AsyncBaseClient | SyncBaseClient
+        self.offers: AsyncOffersAPI | SyncOffersAPI
+        self.products: AsyncProductsAPI | SyncProductsAPI
 
         # Auto-select backend
         if http_backend is None:

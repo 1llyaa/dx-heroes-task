@@ -2,12 +2,11 @@
 Tests for API exceptions.
 """
 
-import pytest
 from applifting_sdk.exceptions import (
+    APIError,
     AppliftingSDKError,
     AppliftingSDKNetworkError,
     AppliftingSDKTimeoutError,
-    APIError,
     AuthenticationError,
     NotFoundError,
     ServerError,

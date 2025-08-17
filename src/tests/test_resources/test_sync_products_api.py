@@ -2,11 +2,13 @@
 Tests for ProductsAPI.
 """
 
-import pytest
 from unittest.mock import Mock
 from uuid import uuid4
-from applifting_sdk.resources import SyncProductsAPI
+
+import pytest
+
 from applifting_sdk.models import RegisterProductRequest, RegisterProductResponse
+from applifting_sdk.resources import SyncProductsAPI
 
 
 class TestSyncProductsAPI:

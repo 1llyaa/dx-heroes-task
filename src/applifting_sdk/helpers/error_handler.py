@@ -1,17 +1,21 @@
 from __future__ import annotations
-from typing import Any, Optional, Tuple, Dict, Callable, Union
+
+from collections.abc import Callable
+from typing import Any, Union
+
 import httpx
 import requests
+
 from applifting_sdk.exceptions import (
     APIError,
     AuthenticationError,
-    PermissionDenied,
-    NotFoundError,
+    BadRequestError,
     ConflictError,
-    ValidationFailed,
+    NotFoundError,
+    PermissionDenied,
     RateLimitError,
     ServerError,
-    BadRequestError,
+    ValidationFailed,
 )
 from applifting_sdk.models import HTTPValidationError
 
@@ -24,7 +28,7 @@ class ErrorHandler:
 
     def __init__(self):
         """Initialize error handler with default status code mappings."""
-        self._status_mappings: Dict[int, Callable[[int, Optional[dict], Optional[str]], Exception]] = {
+        self._status_mappings: dict[int, Callable[[int, dict | None, str | None], Exception]] = {
             400: self._create_bad_request_error,
             401: self._create_auth_error,
             403: self._create_permission_error,
@@ -34,7 +38,7 @@ class ErrorHandler:
             429: self._create_rate_limit_error,
         }
 
-    def parse_error_content(self, resp: ResponseType) -> Tuple[Optional[dict[str, Any]], Optional[str]]:
+    def parse_error_content(self, resp: ResponseType) -> tuple[dict[str, Any] | None, str | None]:
         """
         Parse error response content, prioritizing JSON payload over text.
         Works with both httpx.Response and requests.Response.
@@ -86,7 +90,7 @@ class ErrorHandler:
         raise APIError(status, "Unexpected API error", details=payload, response_text=text)
 
     def add_status_mapping(
-        self, status_code: int, error_creator: Callable[[int, Optional[dict], Optional[str]], Exception]
+        self, status_code: int, error_creator: Callable[[int, dict | None, str | None], Exception]
     ) -> None:
         """
         Add custom status code mapping.
@@ -105,7 +109,7 @@ class ErrorHandler:
         """Get content type from response headers."""
         return resp.headers.get("content-type", "")
 
-    def _extract_json_payload(self, resp: ResponseType) -> Optional[dict[str, Any]]:
+    def _extract_json_payload(self, resp: ResponseType) -> dict[str, Any] | None:
         """Extract JSON payload from response if valid JSON dict."""
         try:
             obj = resp.json()
@@ -115,7 +119,7 @@ class ErrorHandler:
         except Exception:
             return None
 
-    def _extract_text_content(self, resp: ResponseType) -> Optional[str]:
+    def _extract_text_content(self, resp: ResponseType) -> str | None:
         """Extract text content from response."""
         try:
             return resp.text
@@ -127,23 +131,23 @@ class ErrorHandler:
         return "application/json" in content_type.lower()
 
     # Error creator methods
-    def _create_bad_request_error(self, status: int, payload: Optional[dict], text: Optional[str]) -> BadRequestError:
+    def _create_bad_request_error(self, status: int, payload: dict | None, text: str | None) -> BadRequestError:
         return BadRequestError(status, "Bad request", details=payload, response_text=text)
 
-    def _create_auth_error(self, status: int, payload: Optional[dict], text: Optional[str]) -> AuthenticationError:
+    def _create_auth_error(self, status: int, payload: dict | None, text: str | None) -> AuthenticationError:
         return AuthenticationError(status, "Unauthorized", details=payload, response_text=text)
 
-    def _create_permission_error(self, status: int, payload: Optional[dict], text: Optional[str]) -> PermissionDenied:
+    def _create_permission_error(self, status: int, payload: dict | None, text: str | None) -> PermissionDenied:
         return PermissionDenied(status, "Forbidden", details=payload, response_text=text)
 
-    def _create_not_found_error(self, status: int, payload: Optional[dict], text: Optional[str]) -> NotFoundError:
+    def _create_not_found_error(self, status: int, payload: dict | None, text: str | None) -> NotFoundError:
         return NotFoundError(status, "Not Found", details=payload, response_text=text)
 
-    def _create_conflict_error(self, status: int, payload: Optional[dict], text: Optional[str]) -> ConflictError:
+    def _create_conflict_error(self, status: int, payload: dict | None, text: str | None) -> ConflictError:
         return ConflictError(status, "Conflict", details=payload, response_text=text)
 
-    def _create_validation_error(self, status: int, payload: Optional[dict], text: Optional[str]) -> ValidationFailed:
-        details: Optional[HTTPValidationError] = None
+    def _create_validation_error(self, status: int, payload: dict | None, text: str | None) -> ValidationFailed:
+        details: HTTPValidationError | None = None
         if isinstance(payload, dict):
             try:
                 details = HTTPValidationError(**payload)
@@ -151,7 +155,7 @@ class ErrorHandler:
                 pass
         return ValidationFailed(status, "Validation failed", details=details, response_text=text)
 
-    def _create_rate_limit_error(self, status: int, payload: Optional[dict], text: Optional[str]) -> RateLimitError:
+    def _create_rate_limit_error(self, status: int, payload: dict | None, text: str | None) -> RateLimitError:
         return RateLimitError(status, "Too Many Requests", details=payload, response_text=text)
 
 
@@ -160,7 +164,7 @@ default_error_handler = ErrorHandler()
 
 
 # Convenience functions that use the default handler
-def parse_error_content(resp: ResponseType) -> Tuple[Optional[dict[str, Any]], Optional[str]]:
+def parse_error_content(resp: ResponseType) -> tuple[dict[str, Any] | None, str | None]:
     """Parse error content using default error handler."""
     return default_error_handler.parse_error_content(resp)
 

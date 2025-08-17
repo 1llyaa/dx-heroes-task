@@ -2,10 +2,11 @@
 Pytest configuration and shared fixtures for the Applifting SDK test suite.
 """
 
-from typing import Callable, Dict, Tuple
+from collections.abc import Callable
+from contextlib import contextmanager
+
 import httpx
 import pytest
-from contextlib import contextmanager
 
 # -------- pytest configuration --------
 
@@ -49,7 +50,7 @@ def pytest_collection_modifyitems(config, items):
 
 
 def build_mock_transport(
-    routes: Dict[Tuple[str, str], httpx.Response] | Callable[[httpx.Request], httpx.Response],
+    routes: dict[tuple[str, str], httpx.Response] | Callable[[httpx.Request], httpx.Response],
 ) -> httpx.MockTransport:
     """
     Create a MockTransport. You can pass:

@@ -2,8 +2,8 @@
 Tests for configuration settings.
 """
 
-import pytest
 from unittest.mock import patch
+
 from applifting_sdk.config import Settings, settings
 
 

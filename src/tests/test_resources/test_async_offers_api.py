@@ -2,11 +2,13 @@
 Tests for OffersAPI.
 """
 
-import pytest
 from unittest.mock import AsyncMock, Mock
 from uuid import uuid4
-from applifting_sdk.resources import AsyncOffersAPI
+
+import pytest
+
 from applifting_sdk.models import OfferResponse
+from applifting_sdk.resources import AsyncOffersAPI
 
 
 class TestAsyncOffersAPI:

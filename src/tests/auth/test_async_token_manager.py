@@ -2,14 +2,16 @@
 Tests for AsyncTokenManager.
 """
 
+from unittest.mock import AsyncMock, Mock, patch
+
 import httpx
 import pytest
-from unittest.mock import AsyncMock, Mock, patch
+
 from applifting_sdk.auth import AsyncTokenManager
 from applifting_sdk.exceptions import (
+    AppliftingSDKError,
     AppliftingSDKNetworkError,
     AppliftingSDKTimeoutError,
-    AppliftingSDKError,
     BadRequestError,
 )
 

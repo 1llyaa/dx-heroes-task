@@ -2,7 +2,6 @@
 Tests for authentication models.
 """
 
-import pytest
 from applifting_sdk.models import AuthResponse
 
 

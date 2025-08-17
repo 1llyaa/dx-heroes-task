@@ -1,10 +1,9 @@
-import pytest
 from unittest.mock import Mock, patch
 from uuid import uuid4
+
+import pytest
 import requests
 
-
-from applifting_sdk.http import SyncBaseClient
 from applifting_sdk.exceptions import (
     AppliftingSDKNetworkError,
     AppliftingSDKTimeoutError,
@@ -13,6 +12,7 @@ from applifting_sdk.exceptions import (
     ServerError,
     ValidationFailed,
 )
+from applifting_sdk.http import SyncBaseClient
 
 
 class TestSyncBaseClient:
@@ -174,7 +174,7 @@ class TestSyncBaseClient:
             expected_headers = {"Bearer": "test_token", "Content-Type": "application/json", "X-Custom": "value"}
 
             assert call_args[1]["method"] == "PUT"
-            assert call_args[1]["url"] == f"https://api.test.local/test/endpoint"
+            assert call_args[1]["url"] == "https://api.test.local/test/endpoint"
             assert call_args[1]["headers"] == expected_headers
             assert call_args[1]["params"] == params
             assert call_args[1]["json"]["id"] == str(test_uuid)

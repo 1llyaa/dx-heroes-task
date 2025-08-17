@@ -1,5 +1,6 @@
-from uuid import uuid4, UUID
 from unittest.mock import Mock
+from uuid import UUID, uuid4
+
 from applifting_sdk.helpers.uuid_serializer import JSONSerializer
 
 

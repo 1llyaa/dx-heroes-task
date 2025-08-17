@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 
 class AppliftingSDKError(Exception):
@@ -21,9 +21,9 @@ class APIError(AppliftingSDKError):
         status_code: int,
         message: str,
         *,
-        code: Optional[str] = None,
+        code: str | None = None,
         details: Any = None,
-        response_text: Optional[str] = None,
+        response_text: str | None = None,
     ) -> None:
         super().__init__(f"{status_code} {message}")
         self.status_code = status_code

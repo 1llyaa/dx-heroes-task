@@ -1,5 +1,7 @@
+from unittest.mock import AsyncMock, Mock, patch
+
 import pytest
-from unittest.mock import patch, Mock, AsyncMock
+
 from applifting_sdk.client import AppliftingSDKClient
 
 
@@ -202,6 +204,7 @@ class TestAppliftingSDKClientImportHandling(TestAppliftingSDKClient):
         with patch("builtins.__import__", side_effect=mock_import):
             # Force reimport of the client module to trigger the import error handling
             import importlib
+
             import applifting_sdk.client
 
             importlib.reload(applifting_sdk.client)
@@ -223,6 +226,7 @@ class TestAppliftingSDKClientImportHandling(TestAppliftingSDKClient):
         with patch("builtins.__import__", side_effect=mock_import):
             # Force reimport of the client module to trigger the import error handling
             import importlib
+
             import applifting_sdk.client
 
             importlib.reload(applifting_sdk.client)

@@ -2,8 +2,8 @@
 Tests for offer models.
 """
 
-import pytest
 from uuid import uuid4
+
 from applifting_sdk.models import OfferResponse
 
 

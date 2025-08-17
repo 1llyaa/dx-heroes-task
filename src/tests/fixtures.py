@@ -2,14 +2,11 @@
 Common fixtures for the Applifting SDK test suite.
 """
 
-import json
-import tempfile
-import os
-from typing import Dict, Any, List
-from uuid import uuid4, UUID
+from unittest.mock import AsyncMock, Mock
+from uuid import UUID, uuid4
+
 import httpx
 import pytest
-from unittest.mock import Mock, AsyncMock
 
 from applifting_sdk.models import (
     AuthResponse,
@@ -18,7 +15,6 @@ from applifting_sdk.models import (
     RegisterProductResponse,
 )
 from applifting_sdk.models.validation import HTTPValidationError
-
 
 # ============================================================================
 # Test Data Fixtures
@@ -70,7 +66,7 @@ def sample_offer_response(sample_uuid) -> OfferResponse:
 
 
 @pytest.fixture
-def sample_offers_list(sample_uuid) -> List[OfferResponse]:
+def sample_offers_list(sample_uuid) -> list[OfferResponse]:
     """Sample list of offers."""
     return [
         OfferResponse(id=uuid4(), price=1999, items_in_stock=42),

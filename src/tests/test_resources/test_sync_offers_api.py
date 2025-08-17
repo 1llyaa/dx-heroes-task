@@ -4,8 +4,9 @@ Tests for OffersAPI.
 
 from unittest.mock import Mock
 from uuid import uuid4
-from applifting_sdk.resources import SyncOffersAPI
+
 from applifting_sdk.models import OfferResponse
+from applifting_sdk.resources import SyncOffersAPI
 
 
 class TestSyncOffersAPI:

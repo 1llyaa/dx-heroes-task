@@ -2,8 +2,7 @@
 Tests for validation models.
 """
 
-import pytest
-from applifting_sdk.models.validation import ValidationError, HTTPValidationError
+from applifting_sdk.models.validation import HTTPValidationError, ValidationError
 
 
 class TestValidationError:

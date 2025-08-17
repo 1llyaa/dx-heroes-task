@@ -1,14 +1,14 @@
+from typing import Any
+
 import httpx
-from typing import Optional, Dict, Any
 
 from applifting_sdk.auth import AsyncTokenManager
-from applifting_sdk.helpers import JSONSerializer, ErrorHandler
+from applifting_sdk.config import settings
 from applifting_sdk.exceptions import (
     AppliftingSDKNetworkError,
     AppliftingSDKTimeoutError,
 )
-
-from applifting_sdk.config import settings
+from applifting_sdk.helpers import ErrorHandler, JSONSerializer
 
 
 class AsyncBaseClient:
@@ -28,9 +28,9 @@ class AsyncBaseClient:
         method: str,
         endpoint: str,
         *,
-        headers: Optional[Dict[str, Any]] = None,
-        params: Optional[Dict[str, Any]] = None,
-        json: Optional[Dict[str, Any]] = None,
+        headers: dict[str, Any] | None = None,
+        params: dict[str, Any] | None = None,
+        json: dict[str, Any] | None = None,
     ) -> httpx.Response:
         """
         Sends an authenticated HTTP request.

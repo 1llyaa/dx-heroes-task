@@ -1,17 +1,19 @@
-import pytest
 from unittest.mock import Mock, PropertyMock
+
 import httpx
-from applifting_sdk.helpers.error_handler import ErrorHandler, parse_error_content, raise_api_error
+import pytest
+
 from applifting_sdk.exceptions import (
     APIError,
     AuthenticationError,
-    PermissionDenied,
-    NotFoundError,
     ConflictError,
-    ValidationFailed,
+    NotFoundError,
+    PermissionDenied,
     RateLimitError,
     ServerError,
+    ValidationFailed,
 )
+from applifting_sdk.helpers.error_handler import ErrorHandler, parse_error_content, raise_api_error
 from applifting_sdk.models import HTTPValidationError
 
 

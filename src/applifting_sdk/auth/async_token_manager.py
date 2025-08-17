@@ -1,20 +1,19 @@
+import asyncio
+import json
 import os
 import time
-import json
-import asyncio
 
 import httpx
-from typing import Optional
 from platformdirs import user_cache_dir
 
-from applifting_sdk.helpers import ErrorHandler
-from applifting_sdk.models import AuthResponse
+from applifting_sdk.config import settings
 from applifting_sdk.exceptions import (
     AppliftingSDKError,
     AppliftingSDKNetworkError,
     AppliftingSDKTimeoutError,
 )
-from applifting_sdk.config import settings
+from applifting_sdk.helpers import ErrorHandler
+from applifting_sdk.models import AuthResponse
 
 
 class AsyncTokenManager:
@@ -29,7 +28,7 @@ class AsyncTokenManager:
     ):
         self._refresh_token: str = refresh_token
         self._base_url: str = settings.base_url
-        self._access_token: Optional[str] = None
+        self._access_token: str | None = None
         self._token_expires_at: float = 0
         self._lock: asyncio.Lock = asyncio.Lock()
         self._expiration_seconds: int = settings.token_expiration_seconds
@@ -60,10 +59,10 @@ class AsyncTokenManager:
     def _is_token_expired(self) -> bool:
         return time.time() > (self._token_expires_at - self._buffer_seconds)
 
-    def _read_token_cache(self) -> Optional[str]:
+    def _read_token_cache(self) -> str | None:
         if os.path.exists(self._cache_file_path):
             try:
-                with open(self._cache_file_path, "r") as f:
+                with open(self._cache_file_path) as f:
                     data = json.load(f)
                     self._token_expires_at = data.get("expires_at", 0)
                     return data.get("access_token")

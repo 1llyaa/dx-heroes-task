@@ -1,10 +1,9 @@
-import pytest
-from unittest.mock import AsyncMock, Mock, patch, PropertyMock
+from unittest.mock import AsyncMock, Mock, PropertyMock, patch
 from uuid import uuid4
+
 import httpx
+import pytest
 
-
-from applifting_sdk.http import AsyncBaseClient
 from applifting_sdk.exceptions import (
     AppliftingSDKNetworkError,
     AppliftingSDKTimeoutError,
@@ -13,6 +12,7 @@ from applifting_sdk.exceptions import (
     ServerError,
     ValidationFailed,
 )
+from applifting_sdk.http import AsyncBaseClient
 
 
 class TestAsyncBaseClient:

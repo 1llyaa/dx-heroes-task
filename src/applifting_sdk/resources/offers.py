@@ -1,5 +1,4 @@
 from uuid import UUID
-from typing import List
 
 import httpx
 import requests
@@ -16,7 +15,7 @@ class AsyncOffersAPI:
     def __init__(self, client: AsyncBaseClient):
         self._client: AsyncBaseClient = client
 
-    async def get_offers(self, product_id: UUID) -> List[OfferResponse]:
+    async def get_offers(self, product_id: UUID) -> list[OfferResponse]:
         """
         Get all offers for a given product ID.
         """
@@ -35,7 +34,7 @@ class SyncOffersAPI:
     def __init__(self, client: SyncBaseClient):
         self._client: SyncBaseClient = client
 
-    def get_offers(self, product_id: UUID) -> List[OfferResponse]:
+    def get_offers(self, product_id: UUID) -> list[OfferResponse]:
         """
         Get all offers for a given product ID.
         """

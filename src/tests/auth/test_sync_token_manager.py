@@ -1,13 +1,13 @@
-import os
 import json
-import time
+import os
 import tempfile
 import threading
-from unittest.mock import patch, MagicMock
+import time
 from concurrent.futures import ThreadPoolExecutor
+from unittest.mock import MagicMock, patch
 
 import pytest
-from requests.exceptions import ConnectTimeout, ReadTimeout, ConnectionError
+from requests.exceptions import ConnectionError, ConnectTimeout, ReadTimeout
 
 from applifting_sdk.auth import SyncTokenManager
 from applifting_sdk.exceptions import (
