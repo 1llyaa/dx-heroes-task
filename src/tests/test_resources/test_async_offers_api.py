@@ -9,7 +9,7 @@ from applifting_sdk.resources import AsyncOffersAPI
 from applifting_sdk.models import OfferResponse
 
 
-class TestOffersAPI:
+class TestAsyncOffersAPI:
     """Test OffersAPI."""
 
     def test_initialization(self):

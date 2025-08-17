@@ -9,7 +9,7 @@ from applifting_sdk.resources import AsyncProductsAPI
 from applifting_sdk.models import RegisterProductRequest, RegisterProductResponse
 
 
-class TestProductsAPI:
+class TestAsyncProductsAPI:
     """Test ProductsAPI."""
 
     def test_initialization(self):
