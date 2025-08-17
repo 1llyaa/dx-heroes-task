@@ -3,9 +3,9 @@ Tests for ProductsAPI.
 """
 
 import pytest
-from unittest.mock import AsyncMock, Mock, patch
+from unittest.mock import AsyncMock, Mock
 from uuid import uuid4
-from applifting_sdk.resources import ProductsAPI
+from applifting_sdk.resources import AsyncProductsAPI
 from applifting_sdk.models import RegisterProductRequest, RegisterProductResponse
 
 
@@ -15,7 +15,7 @@ class TestProductsAPI:
     def test_initialization(self):
         """Test ProductsAPI initialization."""
         mock_client = Mock()
-        api = ProductsAPI(mock_client)
+        api = AsyncProductsAPI(mock_client)
         assert api._client == mock_client
 
     @pytest.mark.asyncio
@@ -29,7 +29,7 @@ class TestProductsAPI:
         mock_response.json.return_value = {"id": str(expected_id)}
         mock_client._request.return_value = mock_response
 
-        api = ProductsAPI(mock_client)
+        api = AsyncProductsAPI(mock_client)
         product = RegisterProductRequest(id=uuid4(), name="Test Product", description="A test product")
 
         result = await api.register_product(product)
@@ -47,7 +47,7 @@ class TestProductsAPI:
         mock_response.json.return_value = {"id": str(uuid4())}
         mock_client._request.return_value = mock_response
 
-        api = ProductsAPI(mock_client)
+        api = AsyncProductsAPI(mock_client)
         product = RegisterProductRequest(id=uuid4(), name="Test Product", description="A test product")
 
         await api.register_product(product)
@@ -67,7 +67,7 @@ class TestProductsAPI:
         mock_response.json.return_value = {"id": str(uuid4())}
         mock_client._request.return_value = mock_response
 
-        api = ProductsAPI(mock_client)
+        api = AsyncProductsAPI(mock_client)
         product = RegisterProductRequest(id=uuid4(), name="Test Product", description="A test product")
 
         await api.register_product(product)

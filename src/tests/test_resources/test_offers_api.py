@@ -3,9 +3,9 @@ Tests for OffersAPI.
 """
 
 import pytest
-from unittest.mock import AsyncMock, Mock, patch
+from unittest.mock import AsyncMock, Mock
 from uuid import uuid4
-from applifting_sdk.resources import OffersAPI
+from applifting_sdk.resources import AsyncOffersAPI
 from applifting_sdk.models import OfferResponse
 
 
@@ -15,7 +15,7 @@ class TestOffersAPI:
     def test_initialization(self):
         """Test OffersAPI initialization."""
         mock_client = Mock()
-        api = OffersAPI(mock_client)
+        api = AsyncOffersAPI(mock_client)
         assert api._client == mock_client
 
     @pytest.mark.asyncio
@@ -28,7 +28,7 @@ class TestOffersAPI:
         mock_response.json.return_value = [{"id": str(uuid4()), "price": 1000, "items_in_stock": 10}]
         mock_client._request.return_value = mock_response
 
-        api = OffersAPI(mock_client)
+        api = AsyncOffersAPI(mock_client)
         offers = await api.get_offers(uuid4())
 
         assert len(offers) == 1
@@ -46,7 +46,7 @@ class TestOffersAPI:
         mock_response.json.return_value = []
         mock_client._request.return_value = mock_response
 
-        api = OffersAPI(mock_client)
+        api = AsyncOffersAPI(mock_client)
         offers = await api.get_offers(uuid4())
 
         assert offers == []
@@ -62,7 +62,7 @@ class TestOffersAPI:
         mock_client._request.return_value = mock_response
 
         product_id = uuid4()
-        api = OffersAPI(mock_client)
+        api = AsyncOffersAPI(mock_client)
         await api.get_offers(product_id)
 
         mock_client._request.assert_called_once()
