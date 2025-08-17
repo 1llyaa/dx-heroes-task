@@ -1,6 +1,7 @@
 from __future__ import annotations
-from typing import Any, Optional, Tuple, Dict, Callable
+from typing import Any, Optional, Tuple, Dict, Callable, Union
 import httpx
+import requests
 from applifting_sdk.exceptions import (
     APIError,
     AuthenticationError,
@@ -14,9 +15,12 @@ from applifting_sdk.exceptions import (
 )
 from applifting_sdk.models import HTTPValidationError
 
+# Type alias for supported response types
+ResponseType = Union[httpx.Response, requests.Response]
+
 
 class ErrorHandler:
-    """Handles HTTP error response parsing and exception raising."""
+    """Handles HTTP error response parsing and exception raising for both httpx and requests."""
 
     def __init__(self):
         """Initialize error handler with default status code mappings."""
@@ -30,17 +34,18 @@ class ErrorHandler:
             429: self._create_rate_limit_error,
         }
 
-    def parse_error_content(self, resp: httpx.Response) -> Tuple[Optional[dict[str, Any]], Optional[str]]:
+    def parse_error_content(self, resp: ResponseType) -> Tuple[Optional[dict[str, Any]], Optional[str]]:
         """
         Parse error response content, prioritizing JSON payload over text.
+        Works with both httpx.Response and requests.Response.
 
         Args:
-            resp: HTTP response object
+            resp: HTTP response object (httpx or requests)
 
         Returns:
             Tuple of (json_payload, text_content)
         """
-        content_type = resp.headers.get("content-type", "")
+        content_type = self._get_content_type(resp)
 
         # Try JSON first if content type suggests it
         payload = None
@@ -54,17 +59,18 @@ class ErrorHandler:
 
         return payload, text
 
-    def raise_api_error(self, resp: httpx.Response) -> None:
+    def raise_api_error(self, resp: ResponseType) -> None:
         """
         Parse response and raise appropriate API exception.
+        Works with both httpx.Response and requests.Response.
 
         Args:
-            resp: HTTP response object
+            resp: HTTP response object (httpx or requests)
 
         Raises:
             APIError: Or one of its subclasses based on status code
         """
-        status = resp.status_code
+        status = self._get_status_code(resp)
         payload, text = self.parse_error_content(resp)
 
         # Check for specific status code mappings
@@ -80,7 +86,7 @@ class ErrorHandler:
         raise APIError(status, "Unexpected API error", details=payload, response_text=text)
 
     def add_status_mapping(
-        self, status_code: int, error_creator: Callable[[int, Optional[dict], Optional[str]], Exception]
+            self, status_code: int, error_creator: Callable[[int, Optional[dict], Optional[str]], Exception]
     ) -> None:
         """
         Add custom status code mapping.
@@ -91,7 +97,15 @@ class ErrorHandler:
         """
         self._status_mappings[status_code] = error_creator
 
-    def _extract_json_payload(self, resp: httpx.Response) -> Optional[dict[str, Any]]:
+    def _get_status_code(self, resp: ResponseType) -> int:
+        """Get status code from response object."""
+        return resp.status_code
+
+    def _get_content_type(self, resp: ResponseType) -> str:
+        """Get content type from response headers."""
+        return resp.headers.get("content-type", "")
+
+    def _extract_json_payload(self, resp: ResponseType) -> Optional[dict[str, Any]]:
         """Extract JSON payload from response if valid JSON dict."""
         try:
             obj = resp.json()
@@ -101,7 +115,7 @@ class ErrorHandler:
         except Exception:
             return None
 
-    def _extract_text_content(self, resp: httpx.Response) -> Optional[str]:
+    def _extract_text_content(self, resp: ResponseType) -> Optional[str]:
         """Extract text content from response."""
         try:
             return resp.text
@@ -146,11 +160,11 @@ default_error_handler = ErrorHandler()
 
 
 # Convenience functions that use the default handler
-def parse_error_content(resp: httpx.Response) -> Tuple[Optional[dict[str, Any]], Optional[str]]:
+def parse_error_content(resp: ResponseType) -> Tuple[Optional[dict[str, Any]], Optional[str]]:
     """Parse error content using default error handler."""
     return default_error_handler.parse_error_content(resp)
 
 
-def raise_api_error(resp: httpx.Response) -> None:
+def raise_api_error(resp: ResponseType) -> None:
     """Raise API error using default error handler."""
     default_error_handler.raise_api_error(resp)
