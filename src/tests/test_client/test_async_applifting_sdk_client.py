@@ -1,33 +1,33 @@
 """
-Tests for AppliftingSDKClient.
+Tests for AsyncAppliftingSDKClient.
 """
 
 import pytest
-from unittest.mock import Mock, patch
-from applifting_sdk.client import AppliftingSDKClient
+from unittest.mock import patch
+from applifting_sdk.client import AsyncAppliftingSDKClient
 
 
-class TestAppliftingSDKClient:
-    """Test AppliftingSDKClient."""
+class TestAsyncAppliftingSDKClient:
+    """Test AsyncAppliftingSDKClient."""
 
     def test_initialization(self):
         """Test client initialization."""
-        client = AppliftingSDKClient("test_token")
+        client = AsyncAppliftingSDKClient("test_token")
         assert client._token_manager is not None
 
     def test_empty_refresh_token(self):
         """Test initialization with empty refresh token."""
-        client = AppliftingSDKClient("")
+        client = AsyncAppliftingSDKClient("")
         assert client._token_manager is not None
 
     def test_none_refresh_token(self):
         """Test initialization with None refresh token."""
-        client = AppliftingSDKClient(None)
+        client = AsyncAppliftingSDKClient(None)
         assert client._token_manager is not None
 
     def test_component_creation(self):
         """Test that components are created."""
-        client = AppliftingSDKClient("test_token")
+        client = AsyncAppliftingSDKClient("test_token")
 
         # Check that components exist
         assert client._token_manager is not None
@@ -38,7 +38,7 @@ class TestAppliftingSDKClient:
     @pytest.mark.asyncio
     async def test_aclose(self):
         """Test client cleanup."""
-        client = AppliftingSDKClient("test_token")
+        client = AsyncAppliftingSDKClient("test_token")
 
         with patch.object(client._client, "aclose") as mock_close:
             await client.aclose()
@@ -47,7 +47,7 @@ class TestAppliftingSDKClient:
     @pytest.mark.asyncio
     async def test_context_manager(self):
         """Test context manager behavior."""
-        client = AppliftingSDKClient("test_token")
+        client = AsyncAppliftingSDKClient("test_token")
 
         with patch.object(client._client, "aclose") as mock_close:
             async with client:
@@ -56,7 +56,7 @@ class TestAppliftingSDKClient:
 
     def test_api_access(self):
         """Test that API clients are accessible."""
-        client = AppliftingSDKClient("test_token")
+        client = AsyncAppliftingSDKClient("test_token")
 
         assert client.offers is not None
         assert client.products is not None
