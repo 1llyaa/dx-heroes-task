@@ -1,4 +1,4 @@
-from applifting_sdk.resources.offers import OffersAPI
-from applifting_sdk.resources.products import ProductsAPI
+from applifting_sdk.resources.offers import AsyncOffersAPI, SyncOffersAPI
+from applifting_sdk.resources.products import AsyncProductsAPI, SyncProductsAPI
 
-__all__ = ["OffersAPI", "ProductsAPI"]
+__all__ = ["AsyncOffersAPI", "AsyncProductsAPI", "SyncOffersAPI", "SyncProductsAPI"]
