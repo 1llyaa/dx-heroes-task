@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d4e0c7f-a2cd-41c8-ba2e-1be29b50352e" name="Changes" comment="feat: Add sync token_manager">
-      <change afterPath="$PROJECT_DIR$/src/tests/auth/test_sync_token_manager.py" afterDir="false" />
+    <list default="true" id="9d4e0c7f-a2cd-41c8-ba2e-1be29b50352e" name="Changes" comment="chore: .idea">
+      <change afterPath="$PROJECT_DIR$/src/tests/test_http/test_sync_client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/auth/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/auth/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/auth/test_token_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/auth/test_async_token_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/http/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/http/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/http/async_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/http/async_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/http/sync_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/http/sync_client.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,31 +196,7 @@
       <workItem from="1754501067964" duration="10040000" />
       <workItem from="1754589518132" duration="71568000" />
       <workItem from="1755121615962" duration="1684000" />
-      <workItem from="1755184098957" duration="41172000" />
-    </task>
-    <task id="LOCAL-00003" summary="feat: Add models">
-      <option name="closed" value="true" />
-      <created>1754510318905</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1754510318905</updated>
-    </task>
-    <task id="LOCAL-00004" summary="chore: Start over">
-      <option name="closed" value="true" />
-      <created>1754590613440</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1754590613440</updated>
-    </task>
-    <task id="LOCAL-00005" summary="feat: Add models">
-      <option name="closed" value="true" />
-      <created>1754591303125</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1754591303125</updated>
+      <workItem from="1755184098957" duration="46777000" />
     </task>
     <task id="LOCAL-00006" summary="feat: Token manager">
       <option name="closed" value="true" />
@@ -589,7 +566,31 @@
       <option name="project" value="LOCAL" />
       <updated>1755434290977</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="chore: Rename file to correct naming">
+      <option name="closed" value="true" />
+      <created>1755435524432</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1755435524432</updated>
+    </task>
+    <task id="LOCAL-00053" summary="test: Add tests for sync_token_manager">
+      <option name="closed" value="true" />
+      <created>1755435604255</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1755435604255</updated>
+    </task>
+    <task id="LOCAL-00054" summary="chore: .idea">
+      <option name="closed" value="true" />
+      <created>1755435632439</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1755435632439</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -607,9 +608,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Chore: Refactor change name of the sdk" />
-    <MESSAGE value="chore: demo.py" />
-    <MESSAGE value="feat: Add config.py" />
     <MESSAGE value="chore: Change name of env variable" />
     <MESSAGE value="feat: Add pyproject.toml so package is installable" />
     <MESSAGE value="chore: Move examples to top level" />
@@ -632,7 +630,10 @@
     <MESSAGE value="chore: Improve pyproject.toml" />
     <MESSAGE value="feat: Preparation for sync client" />
     <MESSAGE value="feat: Add sync token_manager" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Add sync token_manager" />
+    <MESSAGE value="chore: Rename file to correct naming" />
+    <MESSAGE value="test: Add tests for sync_token_manager" />
+    <MESSAGE value="chore: .idea" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: .idea" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/dx_heroes_task$test_file.coverage" NAME="test_file Coverage Results" MODIFIED="1754513264101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
