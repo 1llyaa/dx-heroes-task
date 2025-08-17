@@ -17,7 +17,6 @@ class TestSyncOffersAPI:
         api = SyncOffersAPI(mock_client)
         assert api._client == mock_client
 
-    
     async def test_get_offers_success(self):
         """Test successful get_offers call."""
         mock_client = Mock()
@@ -35,7 +34,6 @@ class TestSyncOffersAPI:
         assert offers[0].price == 1000
         assert offers[0].items_in_stock == 10
 
-    
     async def test_get_offers_empty_response(self):
         """Test get_offers with empty response."""
         mock_client = Mock()
@@ -50,7 +48,6 @@ class TestSyncOffersAPI:
 
         assert offers == []
 
-    
     async def test_get_offers_endpoint_construction(self):
         """Test that endpoint is constructed correctly."""
         mock_client = Mock()

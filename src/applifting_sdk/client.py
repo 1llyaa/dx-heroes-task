@@ -18,9 +18,9 @@ HttpBackend = Literal["httpx", "requests"]
 
 class AppliftingSDKClient:
     def __init__(
-            self,
-            refresh_token: str,
-            http_backend: Optional[HttpBackend] = None,
+        self,
+        refresh_token: str,
+        http_backend: Optional[HttpBackend] = None,
     ):
         self._token_manager: Union[AsyncTokenManager, SyncTokenManager]
         self._client: Union[AsyncBaseClient, SyncBaseClient]

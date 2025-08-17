@@ -10,7 +10,7 @@ from applifting_sdk.models import OfferResponse
 
 class AsyncOffersAPI:
     """
-     Async API client for /offers endpoints.
+    Async API client for /offers endpoints.
     """
 
     def __init__(self, client: AsyncBaseClient):
@@ -26,9 +26,10 @@ class AsyncOffersAPI:
         # TODO - Check this response
         return [OfferResponse(**offer) for offer in offers_data]
 
+
 class SyncOffersAPI:
     """
-     Sync API client for /offers endpoints.
+    Sync API client for /offers endpoints.
     """
 
     def __init__(self, client: SyncBaseClient):

@@ -24,13 +24,13 @@ class SyncBaseClient:
         self.json_serializer: JSONSerializer = JSONSerializer()
 
     def _request(
-            self,
-            method: str,
-            endpoint: str,
-            *,
-            headers: Optional[Dict[str, Any]] = None,
-            params: Optional[Dict[str, Any]] = None,
-            json: Optional[Dict[str, Any]] = None
+        self,
+        method: str,
+        endpoint: str,
+        *,
+        headers: Optional[Dict[str, Any]] = None,
+        params: Optional[Dict[str, Any]] = None,
+        json: Optional[Dict[str, Any]] = None,
     ) -> requests.Response:
         """
         Sends an authenticated HTTP request.

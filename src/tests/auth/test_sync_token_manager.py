@@ -23,18 +23,14 @@ class TestSyncTokenManager:
     @pytest.fixture
     def token_manager(self):
         """Create a SyncTokenManager instance for testing"""
-        with patch('applifting_sdk.auth.sync_token_manager.user_cache_dir') as mock_cache_dir:
+        with patch("applifting_sdk.auth.sync_token_manager.user_cache_dir") as mock_cache_dir:
             mock_cache_dir.return_value = tempfile.mkdtemp()
             return SyncTokenManager(refresh_token="test_refresh_token")
 
     @pytest.fixture
     def mock_auth_response(self):
         """Mock successful auth response"""
-        return {
-            "access_token": "test_access_token",
-            "token_type": "Bearer",
-            "expires_in": 3600
-        }
+        return {"access_token": "test_access_token", "token_type": "Bearer", "expires_in": 3600}
 
     def test_init(self, token_manager):
         """Test SyncTokenManager initialization"""
@@ -44,7 +40,7 @@ class TestSyncTokenManager:
         assert isinstance(token_manager._lock, threading.Lock)
         assert os.path.exists(os.path.dirname(token_manager._cache_file_path))
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_get_access_token_fresh_request(self, mock_post, token_manager, mock_auth_response):
         """Test getting access token with fresh API request"""
         # Setup mock response
@@ -54,7 +50,7 @@ class TestSyncTokenManager:
         mock_post.return_value = mock_response
 
         # Mock AuthResponse model
-        with patch('applifting_sdk.models.AuthResponse') as mock_auth_model:
+        with patch("applifting_sdk.models.AuthResponse") as mock_auth_model:
             mock_auth_model.return_value.access_token = "test_access_token"
 
             token = token_manager.get_access_token()
@@ -64,7 +60,7 @@ class TestSyncTokenManager:
             assert token_manager._token_expires_at > time.time()
             mock_post.assert_called_once()
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_get_access_token_cached_valid(self, mock_post, token_manager):
         """Test getting access token from valid cache"""
         # Set up a valid cached token
@@ -122,22 +118,19 @@ class TestSyncTokenManager:
 
     def test_read_token_cache_invalid_json(self, token_manager):
         """Test reading cache with invalid JSON"""
-        with open(token_manager._cache_file_path, 'w') as f:
+        with open(token_manager._cache_file_path, "w") as f:
             f.write("invalid json")
 
         cached_token = token_manager._read_token_cache()
         assert cached_token is None
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_get_access_token_from_file_cache(self, mock_post, token_manager):
         """Test getting access token from file cache"""
         # Write valid cache to file
-        cache_data = {
-            "access_token": "file_cached_token",
-            "expires_at": time.time() + 3600
-        }
+        cache_data = {"access_token": "file_cached_token", "expires_at": time.time() + 3600}
 
-        with open(token_manager._cache_file_path, 'w') as f:
+        with open(token_manager._cache_file_path, "w") as f:
             json.dump(cache_data, f)
 
         token = token_manager.get_access_token()
@@ -145,7 +138,7 @@ class TestSyncTokenManager:
         assert token == "file_cached_token"
         mock_post.assert_not_called()
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_refresh_token_request_no_refresh_token(self, mock_post, token_manager):
         """Test refresh token request with no refresh token"""
         token_manager._refresh_token = ""
@@ -153,7 +146,7 @@ class TestSyncTokenManager:
         with pytest.raises(AppliftingSDKError, match="No refresh token was provided"):
             token_manager.get_access_token()
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_refresh_token_request_connect_timeout(self, mock_post, token_manager):
         """Test refresh token request with connection timeout"""
         mock_post.side_effect = ConnectTimeout("Connection timeout")
@@ -161,7 +154,7 @@ class TestSyncTokenManager:
         with pytest.raises(AppliftingSDKTimeoutError, match="Connection timed out"):
             token_manager.get_access_token()
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_refresh_token_request_read_timeout(self, mock_post, token_manager):
         """Test refresh token request with read timeout"""
         mock_post.side_effect = ReadTimeout("Read timeout")
@@ -169,7 +162,7 @@ class TestSyncTokenManager:
         with pytest.raises(AppliftingSDKTimeoutError, match="Read timed out"):
             token_manager.get_access_token()
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_refresh_token_request_connection_error(self, mock_post, token_manager):
         """Test refresh token request with connection error"""
         mock_post.side_effect = ConnectionError("Connection failed")
@@ -177,7 +170,7 @@ class TestSyncTokenManager:
         with pytest.raises(AppliftingSDKNetworkError):
             token_manager.get_access_token()
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_refresh_token_request_api_error(self, mock_post, token_manager):
         """Test refresh token request with API error response"""
         mock_response = MagicMock()
@@ -186,14 +179,12 @@ class TestSyncTokenManager:
         mock_post.return_value = mock_response
 
         # Mock error handler
-        token_manager._error_handler.raise_api_error = MagicMock(
-            side_effect=AppliftingSDKError("API Error")
-        )
+        token_manager._error_handler.raise_api_error = MagicMock(side_effect=AppliftingSDKError("API Error"))
 
         with pytest.raises(AppliftingSDKError):
             token_manager.get_access_token()
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_thread_safety(self, mock_post, token_manager, mock_auth_response):
         """Test thread safety of token manager"""
         # Setup mock response
@@ -203,7 +194,7 @@ class TestSyncTokenManager:
         mock_post.return_value = mock_response
 
         # Mock AuthResponse model
-        with patch('applifting_sdk.models.AuthResponse') as mock_auth_model:
+        with patch("applifting_sdk.models.AuthResponse") as mock_auth_model:
             mock_auth_model.return_value.access_token = "test_access_token"
 
             tokens = []
@@ -224,18 +215,18 @@ class TestSyncTokenManager:
             # API should be called only once due to caching and locking
             assert mock_post.call_count == 1
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_cache_file_permissions_error(self, mock_post, token_manager):
         """Test handling of file permission errors during cache operations"""
         # Mock file operations to raise PermissionError
-        with patch('builtins.open', side_effect=PermissionError("Permission denied")):
+        with patch("builtins.open", side_effect=PermissionError("Permission denied")):
             # Should not raise exception, just return None
             cached_token = token_manager._read_token_cache()
             assert cached_token is None
 
     def test_cache_directory_creation(self):
         """Test that cache directory is created during initialization"""
-        with patch('applifting_sdk.auth.sync_token_manager.user_cache_dir') as mock_cache_dir:
+        with patch("applifting_sdk.auth.sync_token_manager.user_cache_dir") as mock_cache_dir:
             test_dir = os.path.join(tempfile.gettempdir(), "test_applifting_cache")
             mock_cache_dir.return_value = test_dir
 
@@ -251,7 +242,7 @@ class TestSyncTokenManager:
             # Cleanup
             os.rmdir(test_dir)
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_multiple_refresh_calls_thread_safety(self, mock_post, token_manager, mock_auth_response):
         """Test that multiple simultaneous refresh calls don't cause issues"""
         call_count = 0
@@ -267,7 +258,7 @@ class TestSyncTokenManager:
 
         mock_post.side_effect = mock_post_with_delay
 
-        with patch('applifting_sdk.models.AuthResponse') as mock_auth_model:
+        with patch("applifting_sdk.models.AuthResponse") as mock_auth_model:
             mock_auth_model.return_value.access_token = "test_access_token"
 
             def get_token():

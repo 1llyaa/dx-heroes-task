@@ -40,11 +40,11 @@ class TestSyncBaseClient:
         return settings
 
     def _create_mock_response(
-            self,
-            status_code: int = 200,
-            json_data: dict = None,
-            ok: bool = True,
-            json_exception: Exception = None,
+        self,
+        status_code: int = 200,
+        json_data: dict = None,
+        ok: bool = True,
+        json_exception: Exception = None,
     ):
         """Helper to create mock requests.Response objects."""
         mock_response = Mock(spec=requests.Response)
@@ -68,7 +68,6 @@ class TestSyncBaseClient:
             assert client._token_manager == self.mock_token_manager
             assert client._session is not None
             assert client.error_handler is not None
-
 
     def test_request_success_basic(self):
         """Test successful basic request."""
@@ -95,7 +94,6 @@ class TestSyncBaseClient:
 
             assert result == mock_response
 
-    
     def test_request_with_headers(self):
         """Test request with custom headers."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -112,7 +110,6 @@ class TestSyncBaseClient:
             call_args = mock_request.call_args
             assert call_args[1]["headers"] == expected_headers
 
-    
     def test_request_with_params(self):
         """Test request with query parameters."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -127,7 +124,6 @@ class TestSyncBaseClient:
             call_args = mock_request.call_args
             assert call_args[1]["params"] == params
 
-    
     def test_request_with_json(self):
         """Test request with JSON data."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -142,7 +138,6 @@ class TestSyncBaseClient:
             call_args = mock_request.call_args
             assert call_args[1]["json"] == json_data
 
-    
     def test_request_with_uuid_serialization(self):
         """Test request with UUID serialization in JSON data."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -160,7 +155,6 @@ class TestSyncBaseClient:
             assert call_args[1]["json"]["id"] == str(test_uuid)
             assert call_args[1]["json"]["name"] == "test"
 
-    
     def test_request_all_parameters(self):
         """Test request with all parameters."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -186,7 +180,6 @@ class TestSyncBaseClient:
             assert call_args[1]["json"]["id"] == str(test_uuid)
             assert call_args[1]["json"]["data"]["nested"] == "value"
 
-    
     def test_request_connect_timeout_error(self):
         """Test ConnectTimeout exception handling."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -200,7 +193,6 @@ class TestSyncBaseClient:
             assert "Connection timed out" in str(exc_info.value)
             assert exc_info.value.__cause__.__class__ == requests.ConnectTimeout
 
-    
     def test_request_read_timeout_error(self):
         """Test ReadTimeout exception handling."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -214,7 +206,6 @@ class TestSyncBaseClient:
             assert "Read timed out" in str(exc_info.value)
             assert exc_info.value.__cause__.__class__ == requests.ReadTimeout
 
-    
     def test_request_network_error(self):
         """Test NetworkError exception handling."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -228,7 +219,6 @@ class TestSyncBaseClient:
             assert "Network error" in str(exc_info.value)
             assert exc_info.value.__cause__.__class__ == requests.ConnectionError
 
-    
     def test_request_connect_error(self):
         """Test ConnectError exception handling."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -242,7 +232,6 @@ class TestSyncBaseClient:
             assert "Connection error" in str(exc_info.value)
             assert exc_info.value.__cause__.__class__ == requests.ConnectionError
 
-    
     def test_request_remote_protocol_error(self):
         """Test RemoteProtocolError exception handling."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -256,7 +245,6 @@ class TestSyncBaseClient:
             assert "Protocol error" in str(exc_info.value)
             assert exc_info.value.__cause__.__class__ == requests.RequestException
 
-    
     def test_request_api_error_handling(self):
         """Test API error handling for non-success responses."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -273,7 +261,6 @@ class TestSyncBaseClient:
 
                 mock_error_handler.assert_called_once_with(mock_response)
 
-    
     def test_request_different_http_methods(self):
         """Test different HTTP methods."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -290,7 +277,6 @@ class TestSyncBaseClient:
                 call_args = mock_request.call_args
                 assert call_args[1]["method"] == method
 
-    
     def test_close(self):
         """Test context manager close."""
         client = SyncBaseClient(self.mock_token_manager)
@@ -299,7 +285,6 @@ class TestSyncBaseClient:
             client.close()
             mock_close.assert_called_once()
 
-    
     def test__context_manager(self):
         """Test context manager usage."""
         mock_token_manager = Mock()
@@ -314,7 +299,6 @@ class TestSyncBaseClient:
 
             client._session.close.assert_called_once()
 
-    
     def test_context_manager_exception_handling(self):
         """Test context manager properly closes on exception."""
         mock_token_manager = Mock()
@@ -352,7 +336,6 @@ class TestSyncBaseClient:
         assert isinstance(result["items"][0]["item_id"], str)
         assert result["items"][1]["item_id"] == str(test_uuid)
 
-    
     def test_token_manager_integration(self):
         """Test proper integration with token manager."""
         # Test multiple calls to ensure token is fetched each time
@@ -369,7 +352,6 @@ class TestSyncBaseClient:
             # Token should be fetched for each request
             assert self.mock_token_manager.get_access_token.call_count == 2
 
-    
     def test_error_handler_integration(self):
         """Test proper integration with error handler."""
         client = SyncBaseClient(self.mock_token_manager)

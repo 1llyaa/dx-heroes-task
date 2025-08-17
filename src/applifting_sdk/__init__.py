@@ -6,9 +6,4 @@ from .models import (
 
 from .client import AppliftingSDKClient
 
-__all__ = [
-    "OfferResponse",
-    "RegisterProductResponse",
-    "RegisterProductRequest",
-    "AppliftingSDKClient"
-]
+__all__ = ["OfferResponse", "RegisterProductResponse", "RegisterProductRequest", "AppliftingSDKClient"]

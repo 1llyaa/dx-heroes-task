@@ -24,6 +24,7 @@ class AsyncProductsAPI:
         )
         return RegisterProductResponse(**response.json())
 
+
 class SyncProductsAPI:
     """
     Sync API client for /products endpoints.
@@ -38,7 +39,5 @@ class SyncProductsAPI:
         """
 
         endpoint: str = "/api/v1/products/register"
-        response: requests.Response = self._client._request(
-            method="POST", endpoint=endpoint, json=product.model_dump()
-        )
+        response: requests.Response = self._client._request(method="POST", endpoint=endpoint, json=product.model_dump())
         return RegisterProductResponse(**response.json())

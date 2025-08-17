@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d4e0c7f-a2cd-41c8-ba2e-1be29b50352e" name="Changes" comment="feat: Add sync wrappers for resources">
+    <list default="true" id="9d4e0c7f-a2cd-41c8-ba2e-1be29b50352e" name="Changes" comment="chore: Change error message">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/resources/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/resources/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/resources/offers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/resources/offers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/resources/products.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/resources/products.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/test_resources/test_offers_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/test_resources/test_offers_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/test_resources/test_products_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/test_resources/test_products_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +48,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/user/IdeaProjects/dx-heroes-task",
+    "last_opened_file_path": "/Users/user/IdeaProjects/dx-heroes-task/src/tests/test_resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -67,6 +63,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/tests/test_resources" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -198,95 +195,7 @@
       <workItem from="1754501067964" duration="10040000" />
       <workItem from="1754589518132" duration="71568000" />
       <workItem from="1755121615962" duration="1684000" />
-      <workItem from="1755184098957" duration="48364000" />
-    </task>
-    <task id="LOCAL-00010" summary="feat: Add resources for endpoints">
-      <option name="closed" value="true" />
-      <created>1754737589366</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1754737589366</updated>
-    </task>
-    <task id="LOCAL-00011" summary="chore: Improve import auth">
-      <option name="closed" value="true" />
-      <created>1754737609870</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1754737609871</updated>
-    </task>
-    <task id="LOCAL-00012" summary="fix: Fix error with authentication">
-      <option name="closed" value="true" />
-      <created>1754737666084</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1754737666084</updated>
-    </task>
-    <task id="LOCAL-00013" summary="chore: Add debug for better refactoring">
-      <option name="closed" value="true" />
-      <created>1754737690609</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1754737690609</updated>
-    </task>
-    <task id="LOCAL-00014" summary="feat: Create client for the SDK">
-      <option name="closed" value="true" />
-      <created>1754737739346</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1754737739346</updated>
-    </task>
-    <task id="LOCAL-00015" summary="fix: Error with authentication">
-      <option name="closed" value="true" />
-      <created>1754742577462</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1754742577462</updated>
-    </task>
-    <task id="LOCAL-00016" summary="feat: Add cache">
-      <option name="closed" value="true" />
-      <created>1754742884799</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1754742884799</updated>
-    </task>
-    <task id="LOCAL-00017" summary="chore: Reformat with black">
-      <option name="closed" value="true" />
-      <created>1754757954652</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1754757954652</updated>
-    </task>
-    <task id="LOCAL-00018" summary="chore: Reformat with black">
-      <option name="closed" value="true" />
-      <created>1754758283264</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1754758283264</updated>
-    </task>
-    <task id="LOCAL-00019" summary="chore: Remove debug">
-      <option name="closed" value="true" />
-      <created>1754825333330</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1754825333330</updated>
-    </task>
-    <task id="LOCAL-00020" summary="feat: add helper for serializing json">
-      <option name="closed" value="true" />
-      <created>1754825390930</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1754825390930</updated>
+      <workItem from="1755184098957" duration="60373000" />
     </task>
     <task id="LOCAL-00021" summary="fix: Error when in query parameters is UUID">
       <option name="closed" value="true" />
@@ -592,7 +501,95 @@
       <option name="project" value="LOCAL" />
       <updated>1755445993919</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="feat: Add sync wrappers for resources">
+      <option name="closed" value="true" />
+      <created>1755447456941</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1755447456941</updated>
+    </task>
+    <task id="LOCAL-00060" summary="feat: Add sync wrappers for resources">
+      <option name="closed" value="true" />
+      <created>1755447498629</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1755447498629</updated>
+    </task>
+    <task id="LOCAL-00061" summary="chore: .idea">
+      <option name="closed" value="true" />
+      <created>1755447509828</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1755447509828</updated>
+    </task>
+    <task id="LOCAL-00062" summary="fix: Remove async keyword">
+      <option name="closed" value="true" />
+      <created>1755447982211</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1755447982211</updated>
+    </task>
+    <task id="LOCAL-00063" summary="feat: Add tests">
+      <option name="closed" value="true" />
+      <created>1755449169662</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1755449169663</updated>
+    </task>
+    <task id="LOCAL-00064" summary="feat: Add tests">
+      <option name="closed" value="true" />
+      <created>1755452243860</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1755452243860</updated>
+    </task>
+    <task id="LOCAL-00065" summary="feat: Add sync client">
+      <option name="closed" value="true" />
+      <created>1755453455039</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1755453455039</updated>
+    </task>
+    <task id="LOCAL-00066" summary="test: Refactor tests according to new structure">
+      <option name="closed" value="true" />
+      <created>1755453481358</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1755453481358</updated>
+    </task>
+    <task id="LOCAL-00067" summary="feat: Improve client">
+      <option name="closed" value="true" />
+      <created>1755465571097</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1755465571097</updated>
+    </task>
+    <task id="LOCAL-00068" summary="test: Add tests for client.py">
+      <option name="closed" value="true" />
+      <created>1755465588699</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1755465588699</updated>
+    </task>
+    <task id="LOCAL-00069" summary="chore: Change error message">
+      <option name="closed" value="true" />
+      <created>1755465981821</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1755465981822</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -610,12 +607,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: Improve config.py" />
-    <MESSAGE value="feat: Improve exceptions" />
-    <MESSAGE value="chore: Add missing typehints" />
-    <MESSAGE value="chore: Add README.md" />
-    <MESSAGE value="feat: Add tests" />
-    <MESSAGE value="feat: Improve errror handling" />
     <MESSAGE value="test: Add test for error handler" />
     <MESSAGE value="test: Refactor tests" />
     <MESSAGE value="chore: Format with black" />
@@ -631,11 +622,17 @@
     <MESSAGE value="feat: Add sync token_manager" />
     <MESSAGE value="chore: Rename file to correct naming" />
     <MESSAGE value="test: Add tests for sync_token_manager" />
-    <MESSAGE value="feat: Add sync client" />
     <MESSAGE value="test: Add tests for sync client" />
-    <MESSAGE value="chore: .idea" />
     <MESSAGE value="feat: Add sync wrappers for resources" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Add sync wrappers for resources" />
+    <MESSAGE value="chore: .idea" />
+    <MESSAGE value="fix: Remove async keyword" />
+    <MESSAGE value="feat: Add tests" />
+    <MESSAGE value="feat: Add sync client" />
+    <MESSAGE value="test: Refactor tests according to new structure" />
+    <MESSAGE value="feat: Improve client" />
+    <MESSAGE value="test: Add tests for client.py" />
+    <MESSAGE value="chore: Change error message" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: Change error message" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/dx_heroes_task$test_file.coverage" NAME="test_file Coverage Results" MODIFIED="1754513264101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

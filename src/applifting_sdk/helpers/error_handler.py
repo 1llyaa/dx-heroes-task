@@ -86,7 +86,7 @@ class ErrorHandler:
         raise APIError(status, "Unexpected API error", details=payload, response_text=text)
 
     def add_status_mapping(
-            self, status_code: int, error_creator: Callable[[int, Optional[dict], Optional[str]], Exception]
+        self, status_code: int, error_creator: Callable[[int, Optional[dict], Optional[str]], Exception]
     ) -> None:
         """
         Add custom status code mapping.
