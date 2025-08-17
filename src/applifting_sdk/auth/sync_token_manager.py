@@ -81,7 +81,7 @@ class SyncTokenManager:
 
     def _refresh_token_request(self):
         if not self._refresh_token:
-            raise AppliftingSDKError("No refresh token was provided - create .env file and use load_dotenv()")
+            raise AppliftingSDKError("No refresh token was provided")
 
         try:
             response: requests.Response = requests.post(
