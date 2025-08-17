@@ -4,11 +4,12 @@ from .models import (
     RegisterProductRequest,
 )
 
-from .client import AppliftingSDKClient
+from .client import AsyncAppliftingSDKClient, SyncAppliftingSDKClient
 
 __all__ = [
     "OfferResponse",
     "RegisterProductResponse",
     "RegisterProductRequest",
-    "AppliftingSDKClient",
+    "AsyncAppliftingSDKClient",
+    "SyncAppliftingSDKClient",
 ]
