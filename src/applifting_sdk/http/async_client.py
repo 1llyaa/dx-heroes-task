@@ -28,7 +28,7 @@ class AsyncBaseClient:
         method: str,
         endpoint: str,
         *,
-        headers: Optional[Dict[str, str]] = None,
+        headers: Optional[Dict[str, Any]] = None,
         params: Optional[Dict[str, Any]] = None,
         json: Optional[Dict[str, Any]] = None,
     ) -> httpx.Response:
