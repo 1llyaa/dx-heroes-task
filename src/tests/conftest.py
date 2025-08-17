@@ -2,9 +2,7 @@
 Pytest configuration and shared fixtures for the Applifting SDK test suite.
 """
 
-import json
-import re
-from typing import Callable, Dict, Tuple, Any
+from typing import Callable, Dict, Tuple
 import httpx
 import pytest
 from contextlib import contextmanager
@@ -100,7 +98,7 @@ def patch_settings(monkeypatch, base_url, tmp_path):
         monkeypatch.setattr(cfg, "BASE_URL", base_url, raising=False)
 
     # Ensure token cache goes into tmp_path by patching platformdirs.user_cache_dir
-    import applifting_sdk.auth.token_manager as tm
+    import applifting_sdk.auth.async_token_manager as tm
 
     monkeypatch.setattr(tm, "user_cache_dir", lambda *args, **kwargs: str(tmp_path), raising=True)
 

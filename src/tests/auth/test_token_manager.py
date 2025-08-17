@@ -84,8 +84,8 @@ class TestAsyncTokenManager:
                 self.patches = []
 
             def __enter__(self):
-                settings_patch = patch("applifting_sdk.auth.token_manager.settings")
-                cache_patch = patch("applifting_sdk.auth.token_manager.user_cache_dir")
+                settings_patch = patch("applifting_sdk.auth.async_token_manager.settings")
+                cache_patch = patch("applifting_sdk.auth.async_token_manager.user_cache_dir")
 
                 mock_settings = settings_patch.__enter__()
                 mock_cache_dir = cache_patch.__enter__()
@@ -126,7 +126,7 @@ class TestAsyncTokenManagerCaching(TestAsyncTokenManager):
 
     @pytest.mark.asyncio
     @patch("builtins.open")
-    @patch("applifting_sdk.auth.token_manager.os.path.exists")
+    @patch("applifting_sdk.auth.async_token_manager.os.path.exists")
     async def test_get_access_token_cached(self, mock_exists, mock_open):
         """Test getting cached access token."""
         with self._patch_common_dependencies() as (mock_settings, mock_cache_dir):
@@ -145,7 +145,7 @@ class TestAsyncTokenManagerCaching(TestAsyncTokenManager):
 
     @pytest.mark.asyncio
     @patch("builtins.open")
-    @patch("applifting_sdk.auth.token_manager.os.path.exists")
+    @patch("applifting_sdk.auth.async_token_manager.os.path.exists")
     async def test_cache_file_invalid_json(self, mock_exists, mock_open):
         """Test handling invalid JSON in cache file."""
         with self._patch_common_dependencies():
@@ -210,7 +210,7 @@ class TestAsyncTokenManagerTokenRefresh(TestAsyncTokenManager):
     """Test AsyncTokenManager token refresh functionality."""
 
     @pytest.mark.asyncio
-    @patch("applifting_sdk.auth.token_manager.os.path.exists")
+    @patch("applifting_sdk.auth.async_token_manager.os.path.exists")
     async def test_get_access_token_refresh(self, mock_exists):
         """Test refreshing access token."""
         with self._patch_common_dependencies():
