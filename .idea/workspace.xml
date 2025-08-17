@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d4e0c7f-a2cd-41c8-ba2e-1be29b50352e" name="Changes" comment="chore: .idea">
-      <change afterPath="$PROJECT_DIR$/src/tests/test_http/test_sync_client.py" afterDir="false" />
+    <list default="true" id="9d4e0c7f-a2cd-41c8-ba2e-1be29b50352e" name="Changes" comment="feat: Add sync wrappers for resources">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/http/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/http/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/http/async_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/http/async_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/http/sync_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/http/sync_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/resources/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/resources/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/resources/offers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/resources/offers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/applifting_sdk/resources/products.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/applifting_sdk/resources/products.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/test_resources/test_offers_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/test_resources/test_offers_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/test_resources/test_products_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/test_resources/test_products_api.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,39 +198,7 @@
       <workItem from="1754501067964" duration="10040000" />
       <workItem from="1754589518132" duration="71568000" />
       <workItem from="1755121615962" duration="1684000" />
-      <workItem from="1755184098957" duration="46777000" />
-    </task>
-    <task id="LOCAL-00006" summary="feat: Token manager">
-      <option name="closed" value="true" />
-      <created>1754685194874</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1754685194874</updated>
-    </task>
-    <task id="LOCAL-00007" summary="feat: Add Async client">
-      <option name="closed" value="true" />
-      <created>1754686124420</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1754686124420</updated>
-    </task>
-    <task id="LOCAL-00008" summary="chore: Improve import for auth">
-      <option name="closed" value="true" />
-      <created>1754686585229</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1754686585229</updated>
-    </task>
-    <task id="LOCAL-00009" summary="feat: Add resources for endpoints">
-      <option name="closed" value="true" />
-      <created>1754737547994</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1754737547994</updated>
+      <workItem from="1755184098957" duration="48364000" />
     </task>
     <task id="LOCAL-00010" summary="feat: Add resources for endpoints">
       <option name="closed" value="true" />
@@ -590,7 +560,39 @@
       <option name="project" value="LOCAL" />
       <updated>1755435632439</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="feat: Add sync client">
+      <option name="closed" value="true" />
+      <created>1755445950809</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1755445950809</updated>
+    </task>
+    <task id="LOCAL-00056" summary="feat: Add sync client">
+      <option name="closed" value="true" />
+      <created>1755445955273</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1755445955273</updated>
+    </task>
+    <task id="LOCAL-00057" summary="test: Add tests for sync client">
+      <option name="closed" value="true" />
+      <created>1755445974559</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1755445974560</updated>
+    </task>
+    <task id="LOCAL-00058" summary="chore: .idea">
+      <option name="closed" value="true" />
+      <created>1755445993919</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1755445993919</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -608,9 +610,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: Change name of env variable" />
-    <MESSAGE value="feat: Add pyproject.toml so package is installable" />
-    <MESSAGE value="chore: Move examples to top level" />
     <MESSAGE value="feat: Improve config.py" />
     <MESSAGE value="feat: Improve exceptions" />
     <MESSAGE value="chore: Add missing typehints" />
@@ -632,8 +631,11 @@
     <MESSAGE value="feat: Add sync token_manager" />
     <MESSAGE value="chore: Rename file to correct naming" />
     <MESSAGE value="test: Add tests for sync_token_manager" />
+    <MESSAGE value="feat: Add sync client" />
+    <MESSAGE value="test: Add tests for sync client" />
     <MESSAGE value="chore: .idea" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: .idea" />
+    <MESSAGE value="feat: Add sync wrappers for resources" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Add sync wrappers for resources" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/dx_heroes_task$test_file.coverage" NAME="test_file Coverage Results" MODIFIED="1754513264101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
