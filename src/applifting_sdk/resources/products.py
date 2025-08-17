@@ -32,7 +32,7 @@ class SyncProductsAPI:
     def __init__(self, client: SyncBaseClient):
         self._client: SyncBaseClient = client
 
-    async def register_product(self, product: RegisterProductRequest) -> RegisterProductResponse:
+    def register_product(self, product: RegisterProductRequest) -> RegisterProductResponse:
         """
         Register a new product.
         """

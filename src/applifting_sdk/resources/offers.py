@@ -34,7 +34,7 @@ class SyncOffersAPI:
     def __init__(self, client: SyncBaseClient):
         self._client: SyncBaseClient = client
 
-    async def get_offers(self, product_id: UUID) -> List[OfferResponse]:
+    def get_offers(self, product_id: UUID) -> List[OfferResponse]:
         """
         Get all offers for a given product ID.
         """
