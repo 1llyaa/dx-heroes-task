@@ -176,8 +176,8 @@ coverage run -m pytest
 Hello reviewers, I hope you'll be happy with my output!! 
 Along the way of developing this tool I learned a lot of new things and made huge progress personally.
 
-For the things I haven't known I have had to learn them or use AI (obviously)
-I'm willing to learn new things and I think your team will be best match for it.
+For the things I haven't known I had to learn them or use AI (obviously)
+I'm willing to learn new things and I think your team will be the best match for it.
 I want to thank you for this opportunity, and I'm looking forward to see you on another interview and maybe in the 
 office as my new colleagues.  
 
